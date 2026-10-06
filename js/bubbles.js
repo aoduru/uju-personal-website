@@ -217,6 +217,33 @@
     });
   }
 
+  /* ---------- theme: auto -> light -> dark, remembered ---------- */
+  var themeBtn = document.getElementById('theme');
+  var MODES = ['auto', 'light', 'dark'];
+  var mode = 'auto';
+  try { mode = window.localStorage.getItem('uju-theme') || 'auto'; } catch (e) {}
+
+  function applyTheme() {
+    if (mode === 'auto') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', mode);
+    if (themeBtn) themeBtn.textContent = 'Theme: ' + mode;
+  }
+  applyTheme();
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      mode = MODES[(MODES.indexOf(mode) + 1) % MODES.length];
+      try { window.localStorage.setItem('uju-theme', mode); } catch (e) {}
+      applyTheme();
+    });
+  }
+
+  /* ---------- compare page bases: ?bg=cream | white | sky ---------- */
+  var bg = new URLSearchParams(window.location.search).get('bg');
+  if (bg && ['cream', 'white', 'sky'].indexOf(bg) !== -1) {
+    document.documentElement.setAttribute('data-bg', bg);
+  }
+
   /* ---------- try the display fonts: ?font=museo ---------- */
   var FONTS = {
     albert:      ['Albert Sans',       'Albert+Sans:wght@400;500;800'],

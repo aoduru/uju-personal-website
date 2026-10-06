@@ -31,14 +31,33 @@
        --accent-ink  #9E5956  same hue, darkened to 5.1:1, for pink TEXT
        --ink         #3A2E2C  warm near-black, 12.9:1, for reading
   */
-  --bg: #FFFDF8;
+  /* Page base. Three options, switchable with ?bg=cream | white | sky
+     so you can compare them on the real page. */
+  --cream: #FFFDF8;
+  --white: #FFFFFF;
+  --page: var(--cream);
+
+  /* The sky the bubbles float in. Taken from the Hero Descent storyboard
+     (--sky-bg #E6ECF5), warmed very slightly to sit with the pink. */
+  --sky: #E8EEF7;
+
+  --bg: var(--page);
   --ink: #3A2E2C;
   --ink-soft: #7A6361;
   --rule: #EFE4DF;
   --accent: #CA8A88;
   --accent-ink: #9E5956;
-  --bubble-skin: rgba(202, 138, 136, 0.10);
+  --bubble-skin: rgba(255, 255, 255, 0.45);
   --bubble-edge: rgba(202, 138, 136, 0.55);
+
+  /* Pastels, one per interest. Soft enough to sit on sky without
+     competing with the sketch inside. */
+  --p-lilac:  #D9CCF0;
+  --p-sky:    #BFD8F2;
+  --p-rose:   #F2C9D4;
+  --p-peach:  #F7D4B8;
+  --p-mint:   #BFE6D4;
+  --p-butter: #F6E3A8;
 
   /* --- Layout ------------------------------------------------ */
   --gutter: clamp(1.25rem, 0.75rem + 3vw, 4rem);
@@ -46,26 +65,32 @@
   --measure: 68ch;
 }
 
+:root[data-bg="white"] { --page: var(--white); }
+:root[data-bg="sky"]   { --page: var(--sky); }
+
+/* --- Dark: a night sky, not a brown room ------------------------------- */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #1A1512;
-    --ink: #F6EFE9;
-    --ink-soft: #B9A29F;
-    --rule: #332927;
+    --bg: #121823;
+    --ink: #EEF2F8;
+    --ink-soft: #A9B4C4;
+    --rule: #252E3C;
     --accent: #E0A5A2;
-    --accent-ink: #E0A5A2;
-    --bubble-skin: rgba(224, 165, 162, 0.12);
+    --accent-ink: #E8B8B5;
+    --sky: #1B2434;
+    --bubble-skin: rgba(232, 238, 247, 0.07);
     --bubble-edge: rgba(224, 165, 162, 0.5);
   }
 }
 :root[data-theme="dark"] {
-  --bg: #1A1512;
-  --ink: #F6EFE9;
-  --ink-soft: #B9A29F;
-  --rule: #332927;
+  --bg: #121823;
+  --ink: #EEF2F8;
+  --ink-soft: #A9B4C4;
+  --rule: #252E3C;
   --accent: #E0A5A2;
-  --accent-ink: #E0A5A2;
-  --bubble-skin: rgba(224, 165, 162, 0.12);
+  --accent-ink: #E8B8B5;
+  --sky: #1B2434;
+  --bubble-skin: rgba(232, 238, 247, 0.07);
   --bubble-edge: rgba(224, 165, 162, 0.5);
 }
 
@@ -134,7 +159,12 @@ a { color: inherit; }
 /* ===========================================================
    HERO — the girl in the bubble
    =========================================================== */
-.scene { padding: clamp(1rem, 0.5rem + 2vw, 3rem) var(--gutter) 0; }
+/* The bubbles float in a wash of sky that fades back into the page, so the
+   hero reads as air without putting a hard band across the layout. */
+.scene {
+  padding: clamp(1rem, 0.5rem + 2vw, 3rem) var(--gutter) clamp(2rem, 1rem + 3vw, 4rem);
+  background: linear-gradient(180deg, var(--sky) 0%, var(--sky) 45%, transparent 100%);
+}
 
 .stage {
   position: relative;
@@ -193,14 +223,31 @@ a { color: inherit; }
   animation-delay: calc(var(--size) * -0.03s);
   transition: scale 120ms ease, background 200ms ease;
 }
-.bubble:hover { scale: 1.06; background: var(--bubble-edge); }
+/* One pastel per interest. color-mix keeps them translucent, so the sky
+   shows through and they still read as bubbles rather than discs. */
+.bubble[data-sound="reading"] { --tint: var(--p-lilac); }
+.bubble[data-sound="plane"]   { --tint: var(--p-sky); }
+.bubble[data-sound="singing"] { --tint: var(--p-rose); }
+.bubble[data-sound="drawing"] { --tint: var(--p-peach); }
+.bubble[data-sound="games"]   { --tint: var(--p-mint); }
+.bubble[data-sound="cooking"] { --tint: var(--p-butter); }
+
+.bubble[data-sound] {
+  background: color-mix(in srgb, var(--tint) 55%, transparent);
+  border-color: color-mix(in srgb, var(--tint) 90%, var(--ink) 8%);
+}
+.bubble[data-sound]:hover {
+  background: color-mix(in srgb, var(--tint) 80%, transparent);
+}
+
+.bubble:hover { scale: 1.06; }
 
 /* the sketch inside the bubble. Kept off the rim so the circle still reads
    as a bubble; SVG strokes set to currentColor inherit the pink. */
 .bubble-art {
   width: 62%;
   height: auto;
-  color: var(--accent-ink);
+  color: var(--ink);
   pointer-events: none;
   user-select: none;
 }
@@ -324,9 +371,13 @@ a { color: inherit; }
    MUTE — the storyboard asks for a visible control, and browsers
    block audio until someone interacts with the page anyway.
    =========================================================== */
-.mute {
-  display: block;
-  margin: 0.75rem auto 0;
+.scene-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.pill {
   padding: 0.35rem 0.9rem;
   font: inherit;
   font-size: 0.8rem;
@@ -336,8 +387,8 @@ a { color: inherit; }
   border-radius: 999px;
   cursor: pointer;
 }
-.mute:hover { border-color: var(--accent); color: var(--ink); }
-.mute:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.mute .mute-off { display: none; }
-.mute[aria-pressed="true"] .mute-on { display: none; }
-.mute[aria-pressed="true"] .mute-off { display: inline; }
+.pill:hover { border-color: var(--accent); color: var(--ink); }
+.pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pill .mute-off { display: none; }
+.pill[aria-pressed="true"] .mute-on { display: none; }
+.pill[aria-pressed="true"] .mute-off { display: inline; }

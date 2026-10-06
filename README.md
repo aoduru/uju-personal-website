@@ -23,4 +23,19 @@ Google Fonts `<link>` in `index.html`.
 ## Colour
 
 All colour lives in `:root` in `css/style.css`, with a dark-mode block below it.
-Replace the placeholder values with the Figma ones.
+
+Pastel palette: a cream page, a soft blue sky wash behind the hero so the bubbles
+float in air, and one pastel per interest (lilac, sky, rose, peach, mint, butter).
+Text is `--ink` #3A2E2C; pink text uses `--accent-ink` #9E5956, which clears 4.5:1
+on every background here. `--accent` #CA8A88 is for bubbles, rules and hovers only.
+
+### Comparing page backgrounds
+
+`?bg=cream` (default) · `?bg=white` · `?bg=sky`
+
+To make one permanent, set `--page` in `:root`.
+
+### Theme
+
+The button under the hero cycles auto → light → dark and remembers the choice.
+Dark is a night sky, not a brown room.
