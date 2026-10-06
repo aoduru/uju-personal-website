@@ -68,9 +68,12 @@
 :root[data-bg="white"] { --page: var(--white); }
 :root[data-bg="sky"]   { --page: var(--sky); }
 
-/* --- Dark: a night sky, not a brown room ------------------------------- */
+/* --- Dark: a night sky, not a brown room -------------------------------
+   Deliberately NOT applied on bare `prefers-color-scheme: dark`. The site is
+   light by default for everyone; dark arrives only when the visitor chooses
+   it, or chooses "auto" and their system is dark. -------------------------- */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root[data-theme="auto"] {
     --bg: #121823;
     --ink: #EEF2F8;
     --ink-soft: #A9B4C4;

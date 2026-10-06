@@ -37,5 +37,11 @@ To make one permanent, set `--page` in `:root`.
 
 ### Theme
 
-The button under the hero cycles auto → light → dark and remembers the choice.
-Dark is a night sky, not a brown room.
+**The site is light by default for everyone**, whatever their system is set to.
+Dark mode exists but only arrives when a visitor asks for it: the button under
+the hero cycles light → dark → auto (auto follows their OS) and remembers the
+choice in that browser. Dark is a night sky, not a brown room.
+
+If you ever want the site to follow the visitor's system again, change
+`:root[data-theme="auto"]` back to `:root:not([data-theme="light"])` in the
+`prefers-color-scheme` block and make `light` the last mode in `MODES`.

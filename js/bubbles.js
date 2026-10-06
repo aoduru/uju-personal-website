@@ -219,13 +219,13 @@
 
   /* ---------- theme: auto -> light -> dark, remembered ---------- */
   var themeBtn = document.getElementById('theme');
-  var MODES = ['auto', 'light', 'dark'];
-  var mode = 'auto';
-  try { mode = window.localStorage.getItem('uju-theme') || 'auto'; } catch (e) {}
+  var MODES = ['light', 'dark', 'auto'];
+  var mode = 'light';
+  try { mode = window.localStorage.getItem('uju-theme') || 'light'; } catch (e) {}
+  if (MODES.indexOf(mode) === -1) mode = 'light';
 
   function applyTheme() {
-    if (mode === 'auto') document.documentElement.removeAttribute('data-theme');
-    else document.documentElement.setAttribute('data-theme', mode);
+    document.documentElement.setAttribute('data-theme', mode);
     if (themeBtn) themeBtn.textContent = 'Theme: ' + mode;
   }
   applyTheme();
