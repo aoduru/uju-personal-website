@@ -14,7 +14,20 @@
         href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@400;500;700;800&display=swap">
 
   <!-- bump ?v= when you edit these, so browsers pick up the change -->
-  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/style.css?v=4">
+
+  <!-- Artwork can be .png or .svg. Try png, then svg, then show the word.
+       Defined here because images start loading before the body script runs. -->
+  <script>
+    function pickFormat(img, fallback) {
+      if (!img.dataset.tried) { img.dataset.tried = '1'; img.src = fallback; return; }
+      var bubble = img.closest('.bubble');
+      var hero = img.closest('.me-bubble');
+      if (bubble) bubble.classList.add('no-art');
+      if (hero) hero.classList.add('is-placeholder');
+      img.remove();
+    }
+  </script>
 </head>
 <body>
 
@@ -42,39 +55,39 @@
 
       <div class="stage" id="stage">
         <figure class="me-bubble">
-          <img src="assets/me-in-bubble.svg" alt="Uju, floating inside a bubble"
-               onerror="this.closest('.me-bubble').classList.add('is-placeholder'); this.remove();">
+          <img src="assets/me-in-bubble.png" alt="Uju, floating inside a bubble"
+               onerror="pickFormat(this, 'assets/me-in-bubble.svg')">
           <figcaption class="placeholder-note">assets/me-in-bubble.svg</figcaption>
         </figure>
 
         <button class="bubble" data-sound="reading" style="--x:13%; --y:24%; --size:104px">
-          <img class="bubble-art" src="assets/bubbles/reading.svg" alt=""
-               onerror="this.closest('.bubble').classList.add('no-art'); this.remove();">
+          <img class="bubble-art" src="assets/bubbles/reading.png" alt=""
+               onerror="pickFormat(this, 'assets/bubbles/reading.svg')">
           <span class="bubble-label">Reading</span>
         </button>
         <button class="bubble" data-sound="plane" style="--x:84%; --y:18%; --size:96px">
-          <img class="bubble-art" src="assets/bubbles/plane.svg" alt=""
-               onerror="this.closest('.bubble').classList.add('no-art'); this.remove();">
+          <img class="bubble-art" src="assets/bubbles/plane.png" alt=""
+               onerror="pickFormat(this, 'assets/bubbles/plane.svg')">
           <span class="bubble-label">Travel</span>
         </button>
         <button class="bubble" data-sound="singing" style="--x:8%; --y:64%; --size:92px">
-          <img class="bubble-art" src="assets/bubbles/singing.svg" alt=""
-               onerror="this.closest('.bubble').classList.add('no-art'); this.remove();">
+          <img class="bubble-art" src="assets/bubbles/singing.png" alt=""
+               onerror="pickFormat(this, 'assets/bubbles/singing.svg')">
           <span class="bubble-label">Singing</span>
         </button>
         <button class="bubble" data-sound="guitar" style="--x:90%; --y:60%; --size:88px">
-          <img class="bubble-art" src="assets/bubbles/guitar.svg" alt=""
-               onerror="this.closest('.bubble').classList.add('no-art'); this.remove();">
+          <img class="bubble-art" src="assets/bubbles/guitar.png" alt=""
+               onerror="pickFormat(this, 'assets/bubbles/guitar.svg')">
           <span class="bubble-label">Guitar</span>
         </button>
         <button class="bubble" data-sound="drawing" style="--x:28%; --y:87%; --size:84px">
-          <img class="bubble-art" src="assets/bubbles/drawing.svg" alt=""
-               onerror="this.closest('.bubble').classList.add('no-art'); this.remove();">
+          <img class="bubble-art" src="assets/bubbles/drawing.png" alt=""
+               onerror="pickFormat(this, 'assets/bubbles/drawing.svg')">
           <span class="bubble-label">Drawing</span>
         </button>
         <button class="bubble" data-sound="games" style="--x:68%; --y:89%; --size:76px">
-          <img class="bubble-art" src="assets/bubbles/games.svg" alt=""
-               onerror="this.closest('.bubble').classList.add('no-art'); this.remove();">
+          <img class="bubble-art" src="assets/bubbles/games.png" alt=""
+               onerror="pickFormat(this, 'assets/bubbles/games.svg')">
           <span class="bubble-label">Games</span>
         </button>
       </div>
@@ -125,6 +138,6 @@
     <p class="footer-fine">© <span id="year">2026</span> Uju Duru</p>
   </footer>
 
-  <script src="js/bubbles.js?v=3"></script>
+  <script src="js/bubbles.js?v=4"></script>
 </body>
 </html>
