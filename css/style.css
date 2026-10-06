@@ -194,6 +194,33 @@ a { color: inherit; }
   transition: scale 120ms ease, background 200ms ease;
 }
 .bubble:hover { scale: 1.06; background: var(--bubble-edge); }
+
+/* the sketch inside the bubble. Kept off the rim so the circle still reads
+   as a bubble; SVG strokes set to currentColor inherit the pink. */
+.bubble-art {
+  width: 62%;
+  height: auto;
+  color: var(--accent-ink);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* The label is always in the accessibility tree. It only becomes visible
+   when a sketch is missing, so the page never shows an empty circle. */
+.bubble-label {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.bubble.no-art .bubble-label {
+  position: static;
+  width: auto; height: auto;
+  margin: 0; overflow: visible;
+  clip: auto; white-space: normal;
+}
 .bubble:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 .bubble.is-popped {
