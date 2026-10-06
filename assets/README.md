@@ -14,13 +14,15 @@ One file per bubble, named to match its `data-sound` attribute in `index.html`:
 | `sound/reading.mp3` | a book riffling its pages |
 | `sound/plane.mp3` | a plane taking off, or the fasten-seatbelt chime |
 | `sound/singing.mp3` | a sung note or short phrase |
+| `sound/guitar.mp3` | an acoustic strum or a single plucked string |
 | `sound/drawing.mp3` | pencil on paper |
 | `sound/games.mp3` | a controller click or coin blip |
-| `sound/cooking.mp3` | a pan sizzling |
 
 Keep each under ~100 KB and about a second long. Until a file exists the bubble
 synthesises its own version of that sound, so the page is playable without audio
 and every bubble already sounds different.
+
+Music is two bubbles, not one: guitar for playing, singing for your voice.
 
 ## If the bubbles are separate art in Figma
 Export each as its own SVG and we swap the CSS circles for them. The
@@ -34,7 +36,7 @@ attribution here — some require credit even for personal sites.
 
 One drawing per bubble, in `assets/bubbles/`, named for its `data-sound`:
 
-`reading.svg` · `plane.svg` · `singing.svg` · `drawing.svg` · `games.svg` · `cooking.svg`
+`reading.svg` · `plane.svg` · `singing.svg` · `guitar.svg` · `drawing.svg` · `games.svg`
 
 Until a file lands, the bubble shows its word instead, so nothing looks broken.
 
@@ -80,9 +82,9 @@ personal and educational use only, which a professional portfolio is not.
 | reading | page turn · book page flip · riffling pages |
 | plane | airplane takeoff · jet flyby · cabin chime |
 | singing | record yourself — see below |
+| guitar | acoustic guitar strum · guitar pluck · nylon string |
 | drawing | pencil on paper · pencil sketching |
 | games | arcade coin · game blip · controller click |
-| cooking | frying pan sizzle · sizzle |
 
 **Sing the singing one yourself.** It is the one bubble where a stock clip will
 always sound like a stock clip, it sidesteps licensing entirely, and a visitor

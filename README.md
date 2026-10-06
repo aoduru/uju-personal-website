@@ -25,7 +25,7 @@ Google Fonts `<link>` in `index.html`.
 All colour lives in `:root` in `css/style.css`, with a dark-mode block below it.
 
 Pastel palette: a cream page, a soft blue sky wash behind the hero so the bubbles
-float in air, and one pastel per interest (lilac, sky, rose, peach, mint, butter).
+float in air, and one pastel per interest (lilac, sky, rose, butter, peach, mint).
 Text is `--ink` #3A2E2C; pink text uses `--accent-ink` #9E5956, which clears 4.5:1
 on every background here. `--accent` #CA8A88 is for bubbles, rules and hovers only.
 

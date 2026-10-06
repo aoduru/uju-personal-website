@@ -5,8 +5,8 @@
    is playable today with no audio files at all:
 
      reading  page riffling          plane    engine spooling up
-     singing  two sung notes         drawing  pencil on paper
-     games    coin / power-up blip   cooking  a pan sizzling
+     singing  two sung notes         guitar   a strummed chord
+     drawing  pencil on paper        games    coin / power-up blip
 
    Drop a real recording at assets/sound/<name>.mp3 and it plays
    that instead, automatically. Nothing here needs changing.
@@ -114,6 +114,42 @@
       src.stop(t + 1.35);
     },
 
+    // a strummed chord: a pick transient, then four strings a beat apart,
+    // each a decaying partial stack. Reads as a guitar, not as a synth note.
+    guitar: function (ac, t) {
+      var strings = [196.00, 246.94, 293.66, 392.00];   // G3 B3 D4 G4
+      strings.forEach(function (freq, i) {
+        var at = t + i * 0.045;
+
+        // pick attack
+        var click = noise(ac);
+        var bp = ac.createBiquadFilter();
+        var cg = ac.createGain();
+        bp.type = 'bandpass';
+        bp.frequency.value = freq * 6;
+        bp.Q.value = 2;
+        cg.gain.setValueAtTime(0.06, at);
+        cg.gain.exponentialRampToValueAtTime(0.0001, at + 0.03);
+        click.connect(bp).connect(cg).connect(ac.destination);
+        click.start(at);
+        click.stop(at + 0.04);
+
+        // the string itself: fundamental plus two partials, decaying fast
+        [[1, 0.13], [2, 0.05], [3, 0.025]].forEach(function (partial) {
+          var osc = ac.createOscillator();
+          var gain = ac.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq * partial[0], at);
+          gain.gain.setValueAtTime(0.0001, at);
+          gain.gain.exponentialRampToValueAtTime(partial[1], at + 0.006);
+          gain.gain.exponentialRampToValueAtTime(0.0001, at + 1.1);
+          osc.connect(gain).connect(ac.destination);
+          osc.start(at);
+          osc.stop(at + 1.15);
+        });
+      });
+    },
+
     // two sung notes, A4 up to C#5, with a little vibrato
     singing: function (ac, t) {
       [[440, t, 0.42], [554.37, t + 0.3, 0.6]].forEach(function (note) {
@@ -150,21 +186,6 @@
     games: function (ac, t) {
       tone(ac, 'square', 988, t, 0.08, 0.12);
       tone(ac, 'square', 1319, t + 0.07, 0.22, 0.12);
-    },
-
-    // sizzle: band-limited noise, slow fade
-    cooking: function (ac, t) {
-      var src = noise(ac);
-      var hp = ac.createBiquadFilter();
-      var gain = ac.createGain();
-      hp.type = 'highpass';
-      hp.frequency.value = 1800;
-      gain.gain.setValueAtTime(0.0001, t);
-      gain.gain.exponentialRampToValueAtTime(0.1, t + 0.12);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.9);
-      src.connect(hp).connect(gain).connect(ac.destination);
-      src.start(t);
-      src.stop(t + 0.95);
     }
   };
 

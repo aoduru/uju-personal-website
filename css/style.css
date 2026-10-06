@@ -232,8 +232,8 @@ a { color: inherit; }
 .bubble[data-sound="plane"]   { --tint: var(--p-sky); }
 .bubble[data-sound="singing"] { --tint: var(--p-rose); }
 .bubble[data-sound="drawing"] { --tint: var(--p-peach); }
+.bubble[data-sound="guitar"]  { --tint: var(--p-butter); }
 .bubble[data-sound="games"]   { --tint: var(--p-mint); }
-.bubble[data-sound="cooking"] { --tint: var(--p-butter); }
 
 .bubble[data-sound] {
   background: color-mix(in srgb, var(--tint) 55%, transparent);
