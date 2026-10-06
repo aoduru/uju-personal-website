@@ -20,6 +20,9 @@
   'use strict';
 
   var RESPAWN_MS = 1400;
+  var MAX_PLAY_MS = 1600;   // a pop is a punctuation mark, not a track
+  var FADE_MS = 250;
+  var playing = null;
   var muted = false;
   var ctx = null;
 
@@ -196,15 +199,39 @@
     try { (make || SOUNDS.games)(ac, ac.currentTime + 0.01); } catch (e) {}
   }
 
+  // Fade a clip out and stop it, so a long file never outlives its bubble
+  // and a second pop never stacks on top of the first.
+  function stop(clip) {
+    if (!clip || clip.paused) return;
+    var steps = 10;
+    var step = clip.volume / steps;
+    var fade = window.setInterval(function () {
+      clip.volume = Math.max(0, clip.volume - step);
+      if (clip.volume <= 0.01) {
+        window.clearInterval(fade);
+        clip.pause();
+      }
+    }, FADE_MS / steps);
+  }
+
   function play(name) {
     if (muted) return;
     if (!name) return synth('games');
-    var file = new Audio('assets/sound/' + name + '.mp3');
-    file.volume = 0.7;
-    var attempt = file.play();
+
+    stop(playing);                     // whatever was ringing, let it go
+
+    var clip = new Audio('assets/sound/' + name + '.mp3');
+    clip.volume = 0.7;
+    var attempt = clip.play();
+
     if (attempt && typeof attempt.catch === 'function') {
       attempt.catch(function () { synth(name); });   // no file yet → synthesise
     }
+
+    playing = clip;
+    window.setTimeout(function () {
+      if (playing === clip) stop(clip);
+    }, MAX_PLAY_MS - FADE_MS);
   }
 
   /* ---------- pop ---------- */

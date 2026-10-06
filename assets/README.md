@@ -18,7 +18,9 @@ One file per bubble, named to match its `data-sound` attribute in `index.html`:
 | `sound/drawing.mp3` | pencil on paper |
 | `sound/games.mp3` | a controller click or coin blip |
 
-Keep each under ~100 KB and about a second long. Until a file exists the bubble
+Aim for about a second. Longer is survivable — the page fades any clip out at
+1.6s and stops the previous one when a new bubble is popped — but a clip that is
+genuinely short sounds better than a long one cut off. Until a file exists the bubble
 synthesises its own version of that sound, so the page is playable without audio
 and every bubble already sounds different.
 
@@ -110,4 +112,13 @@ Keep a record here as you add files, so you can answer the question later:
 
 | file | source + link | licence | credit needed |
 | --- | --- | --- | --- |
-| | | | |
+| reading.mp3 | likely Pixabay (freesound_community upload) | confirm | confirm |
+| plane.mp3 | | | |
+| guitar.mp3 | | | |
+| drawing.mp3 | likely Pixabay (freesound_community upload) | confirm | confirm |
+| games.mp3 | | | |
+| singing.mp3 | not added yet | | |
+
+The `freesound_community-*` originals still in your Downloads are the Pixabay
+republishing account, which is CC0 and needs no credit — but confirm where each
+one actually came from before you fill this in.
