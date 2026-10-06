@@ -46,15 +46,19 @@
           <figcaption class="placeholder-note">assets/me-in-bubble.svg</figcaption>
         </figure>
 
-        <button class="bubble" data-sound="drawing"   style="--x:14%; --y:22%; --size:104px">Drawing</button>
-        <button class="bubble" data-sound="games"     style="--x:80%; --y:16%; --size:88px">Games</button>
-        <button class="bubble" data-sound="music"     style="--x:8%;  --y:64%; --size:92px">Music</button>
-        <button class="bubble" data-sound="spatial"   style="--x:86%; --y:58%; --size:112px">Spatial</button>
-        <button class="bubble" data-sound="cooking"   style="--x:28%; --y:84%; --size:76px">Cooking</button>
-        <button class="bubble" data-sound="reading"   style="--x:68%; --y:88%; --size:84px">Reading</button>
+        <button class="bubble" data-sound="reading" style="--x:14%; --y:24%; --size:104px">Reading</button>
+        <button class="bubble" data-sound="plane"   style="--x:82%; --y:18%; --size:96px">Travel</button>
+        <button class="bubble" data-sound="singing" style="--x:8%;  --y:66%; --size:92px">Singing</button>
+        <button class="bubble" data-sound="drawing" style="--x:88%; --y:62%; --size:88px">Drawing</button>
+        <button class="bubble" data-sound="games"   style="--x:30%; --y:86%; --size:76px">Games</button>
+        <button class="bubble" data-sound="cooking" style="--x:70%; --y:88%; --size:84px">Cooking</button>
       </div>
 
       <p class="scene-hint">Pop a bubble.</p>
+
+      <button id="mute" class="mute" type="button" aria-pressed="false">
+        <span class="mute-on">Sound on</span><span class="mute-off">Sound off</span>
+      </button>
     </section>
 
     <!-- ============ SECTION STUBS (so the nav links land somewhere) ============ -->
