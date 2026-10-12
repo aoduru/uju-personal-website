@@ -248,8 +248,11 @@ a { color: inherit; }
 /* the sketch inside the bubble. Kept off the rim so the circle still reads
    as a bubble; SVG strokes set to currentColor inherit the pink. */
 .bubble-art {
+  /* A square box the art fits inside, so a tall drawing (a music note) and a
+     wide one (an open book) both sit within the circle instead of overflowing. */
   width: 62%;
-  height: auto;
+  height: 62%;
+  object-fit: contain;
   color: var(--ink);
   pointer-events: none;
   user-select: none;
