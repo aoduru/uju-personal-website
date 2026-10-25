@@ -333,6 +333,7 @@
     li.className = 'tray-item';
     li.style.setProperty('--tint', getComputedStyle(sticker).getPropertyValue('--tint'));
     li.style.setProperty('--tilt', (Math.random() * 10 - 5).toFixed(1) + 'deg');
+    if (sticker.dataset.art) li.dataset.art = sticker.dataset.art;
     var art = sticker.querySelector('.sticker-art');
     if (art) {
       var img = document.createElement('img');

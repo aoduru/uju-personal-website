@@ -366,23 +366,28 @@ a { color: inherit; }
    It sits on <body> rather than .stage so the tray copies change too;
    otherwise peeled stickers would land as circles.
    --------------------------------------------------------------- */
+.sticker[data-art="contour"] .sticker-inner,
 body[data-art="contour"] .sticker-inner {
   background: none;
   border: 0;
   box-shadow: none;
   border-radius: 0;
 }
+.sticker[data-art="contour"] .sticker-art,
+.sticker[data-art="contour"] .sticker-shine,
 body[data-art="contour"] .sticker-art,
 body[data-art="contour"] .sticker-shine {
   width: 100%;
   height: 100%;
 }
+.tray-item[data-art="contour"],
 body[data-art="contour"] .tray-item {
   background: none;
   border: 0;
   box-shadow: none;
   border-radius: 0;
 }
+.tray-item[data-art="contour"] img,
 body[data-art="contour"] .tray-item img {
   width: 100%;
   height: 100%;

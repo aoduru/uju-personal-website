@@ -52,8 +52,16 @@ shape of the drawing rather than a square. That is how real sticker art works,
 it costs nothing at runtime, and it lets you control where the border is thick
 or thin. Keep the weight consistent across all six so they read as one sheet.
 
-Once all the drawings carry their own die cut, set `data-art="contour"` on the
-`.stage` element in `index.html`. That drops the square card, the pastel fill
+Contour works per sticker, so the set can migrate one drawing at a time: put
+`data-art="contour"` on that `<button class="sticker">` and only it loses the
+card. `plane` is already there. Once every drawing carries its own die cut,
+move the attribute to `<body>` once and delete the per-sticker ones.
+
+Contour art is cropped tight rather than padded, so it fills its own box —
+which is why the plane now reads larger than the carded ones. They will match
+again when they are all contour.
+
+Setting `data-art="contour"` That drops the square card, the pastel fill
 and the box shadow, leaving the artwork, a shadow that traces its cut edge, and
 the gloss sweep. Until then the square cards stay, so the page never looks
 half-finished mid-redraw.
