@@ -238,7 +238,7 @@ a { color: inherit; }
   place-items: center;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: 24%;
   background: color-mix(in srgb, var(--tint) 34%, #FFFFFF);
   border: 4px solid #FFFFFF;
   box-shadow: 0 2px 4px rgba(58, 46, 44, 0.16);
@@ -357,21 +357,33 @@ a { color: inherit; }
 
 /* ---------------------------------------------------------------
    CONTOUR ART
-   When the drawings carry their own white die cut, the square card
-   underneath them becomes wrong — the sticker should BE the shape.
-   Set data-art="contour" on .stage and the chrome drops away, leaving
-   the artwork, its shadow and its gloss.
+   When the drawings carry their own white die cut, every bit of chrome
+   underneath them is wrong — the sticker should BE the shape, with no
+   white space of its own. Set data-art="contour" on <body> and the
+   circle, the pastel fill and the card shadow all drop away, leaving the
+   artwork, a shadow tracing its cut edge, and the gloss.
+
+   It sits on <body> rather than .stage so the tray copies change too;
+   otherwise peeled stickers would land as circles.
    --------------------------------------------------------------- */
-.stage[data-art="contour"] .sticker-inner {
+body[data-art="contour"] .sticker-inner {
   background: none;
   border: 0;
   box-shadow: none;
+  border-radius: 0;
 }
-.stage[data-art="contour"] .sticker-art {
+body[data-art="contour"] .sticker-art,
+body[data-art="contour"] .sticker-shine {
   width: 100%;
   height: 100%;
 }
-.stage[data-art="contour"] .sticker-shine {
+body[data-art="contour"] .tray-item {
+  background: none;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+body[data-art="contour"] .tray-item img {
   width: 100%;
   height: 100%;
 }
@@ -433,7 +445,7 @@ a { color: inherit; }
   height: 54px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
+  border-radius: 24%;
   background: color-mix(in srgb, var(--tint) 34%, #FFFFFF);
   border: 3px solid #FFFFFF;
   box-shadow: 0 2px 5px rgba(58, 46, 44, 0.18);
