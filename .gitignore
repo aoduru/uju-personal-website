@@ -1,2 +1,5 @@
 .DS_Store
 node_modules/
+
+# art originals: kept on disk, too heavy for the repo
+assets/art/_originals/
