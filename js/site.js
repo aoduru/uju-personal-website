@@ -27,9 +27,9 @@
     });
   }
 
-  /* ---------- compare page bases: ?bg=cream | white | sky ---------- */
+  /* ---------- compare page bases: ?bg=blush | cream | white ---------- */
   var bg = new URLSearchParams(window.location.search).get('bg');
-  if (bg && ['cream', 'white', 'sky'].indexOf(bg) !== -1) {
+  if (bg && ['blush', 'cream', 'white'].indexOf(bg) !== -1) {
     document.documentElement.setAttribute('data-bg', bg);
   }
 
