@@ -23,8 +23,31 @@
 (function () {
   'use strict';
 
-  var MAX_PLAY_MS = 1600;   // a pop is a punctuation mark, not a track
+  var MAX_PLAY_MS = 1600;   // a peel is a punctuation mark, not a track
   var FADE_MS = 250;
+
+  // Recordings arrive with silence at the front and their best moment some way
+  // in, so each one says where to start, how loud to sit, and how long to run.
+  // Measured from the files, not guessed.
+  var TRIM = {
+    'peel-sticker': { start: 0.30, volume: 0.45 },
+    'singing':      { start: 1.10, volume: 0.95, maxMs: 2800 },
+    'guitar':       { start: 0.00, volume: 0.70 },
+    'games':        { start: 0.00, volume: 0.60 }
+  };
+
+  function cue(name, fallbackVolume) {
+    var t = TRIM[name] || {};
+    var clip = new Audio('assets/sound/' + name + '.mp3' + (t.start ? '#t=' + t.start : ''));
+    clip.volume = t.volume != null ? t.volume : fallbackVolume;
+    // Media fragments are the clean way in; this covers browsers that ignore them.
+    if (t.start) {
+      clip.addEventListener('loadedmetadata', function () {
+        if (clip.currentTime < t.start) clip.currentTime = t.start;
+      });
+    }
+    return clip;
+  }
   var playing = null;
   var muted = false;
   var ctx = null;
@@ -222,10 +245,10 @@
   // instead of cutting it off the way a second interest sound would.
   function peelSound() {
     if (muted) return;
-    var file = new Audio('assets/sound/peel.mp3');
-    file.volume = 0.5;
+    var file = cue('peel-sticker', 0.45);
     var attempt = file.play();
     if (attempt && typeof attempt.catch === 'function') attempt.catch(crackle);
+    window.setTimeout(function () { stop(file); }, 1100);
   }
 
   function synth(name) {
@@ -256,8 +279,7 @@
 
     stop(playing);                     // whatever was ringing, let it go
 
-    var clip = new Audio('assets/sound/' + name + '.mp3');
-    clip.volume = 0.7;
+    var clip = cue(name, 0.7);
     var attempt = clip.play();
 
     if (attempt && typeof attempt.catch === 'function') {
@@ -265,9 +287,10 @@
     }
 
     playing = clip;
+    var cap = (TRIM[name] && TRIM[name].maxMs) || MAX_PLAY_MS;
     window.setTimeout(function () {
       if (playing === clip) stop(clip);
-    }, MAX_PLAY_MS - FADE_MS);
+    }, cap - FADE_MS);
   }
 
   /* ---------- peel ---------- */

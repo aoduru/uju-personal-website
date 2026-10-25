@@ -17,7 +17,8 @@ One file per bubble, named to match its `data-sound` attribute in `index.html`:
 | `sound/guitar.mp3` | an acoustic strum or a single plucked string |
 | `sound/drawing.mp3` | pencil on paper |
 | `sound/games.mp3` | a controller click or coin blip |
-| `sound/peel.mp3` | a sticker coming off its backing — plays under every peel |
+| `sound/peel-sticker.mp3` | a sticker coming off its backing — plays under every peel |
+| `sound/page-peel.mp3` | reserved for the page peel, not wired up yet |
 
 Aim for about a second. Longer is survivable — the page fades any clip out at
 1.6s and stops the previous one when a new bubble is popped — but a clip that is
@@ -118,6 +119,19 @@ personal and educational use only, which a professional portfolio is not.
 always sound like a stock clip, it sidesteps licensing entirely, and a visitor
 hearing your actual voice is a better moment than anything you can download.
 Phone voice memo is fine.
+
+### Starting offsets
+
+Recordings arrive with silence at the front and their best moment some way in,
+so `TRIM` at the top of `js/stickers.js` says where each one starts, how loud it
+sits and how long it runs. Measured from the files rather than guessed:
+
+| file | starts at | why |
+| --- | --- | --- |
+| `peel-sticker.mp3` | 0.30s | 18s of takes; the first clean peel is at 0.3 |
+| `singing.mp3` | 1.10s | 11s recording whose strongest phrase begins there |
+
+If you replace either file, re-check the offset or the clip will open on silence.
 
 ### Making them sit together
 
