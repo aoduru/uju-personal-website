@@ -279,6 +279,21 @@
   var stickers = stage ? [].slice.call(stage.querySelectorAll('.sticker')) : [];
   var peeled = [];
 
+  // Point the gloss mask at whichever art file actually loaded — the .png, or
+  // the .svg if the png was missing — so the sweep follows the drawing's shape
+  // rather than its bounding box.
+  function maskFromArt(sticker) {
+    var art = sticker.querySelector('.sticker-art');
+    if (!art) return;
+    var apply = function () {
+      if (art.naturalWidth) {
+        sticker.style.setProperty('--art', 'url("' + art.getAttribute('src') + '")');
+      }
+    };
+    if (art.complete) apply();
+    art.addEventListener('load', apply);
+  }
+
   function updateTray() {
     if (trayCount) trayCount.textContent = '(' + peeled.length + ' of ' + stickers.length + ')';
     // The only place the idea is ever said out loud, and only once the page is bare.
@@ -356,6 +371,7 @@
     });
   }
 
+  stickers.forEach(maskFromArt);
   updateTray();
 
   /* ---------- mute ---------- */

@@ -44,6 +44,22 @@ One drawing per bubble, in `assets/bubbles/`, named for its `data-sound`:
 
 Until a file lands, the bubble shows its word instead, so nothing looks broken.
 
+### Drawing the die cut in
+
+The white sticker border should be drawn into the PNG itself, following the
+shape of the drawing rather than a square. That is how real sticker art works,
+it costs nothing at runtime, and it lets you control where the border is thick
+or thin. Keep the weight consistent across all six so they read as one sheet.
+
+Once all the drawings carry their own die cut, set `data-art="contour"` on the
+`.stage` element in `index.html`. That drops the square card, the pastel fill
+and the box shadow, leaving the artwork, a shadow that traces its cut edge, and
+the gloss sweep. Until then the square cards stay, so the page never looks
+half-finished mid-redraw.
+
+**The plane cannot stay white.** With no square behind it, a white plane with a
+white die cut is invisible on a blush page. Give it a colour as you redraw.
+
 **PNG or SVG, either works.** The page tries `.png` first, then `.svg`, then shows
 the word. PNG is the right choice for hand-drawn or painted art — tracing a sketch
 to SVG flattens the texture that makes it yours.
