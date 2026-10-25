@@ -398,3 +398,128 @@ a { color: inherit; }
 .pill .mute-off { display: none; }
 .pill[aria-pressed="true"] .mute-on { display: none; }
 .pill[aria-pressed="true"] .mute-off { display: inline; }
+
+/* ===========================================================
+   CASE STUDY CARDS — swipe, scroll or use the arrows
+   The track runs edge to edge so the next card peeks in from
+   the right; that peek is what tells people it swipes.
+   =========================================================== */
+.band-carousel { padding-inline: 0; }
+
+.band-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-inline: var(--gutter);
+  margin-bottom: clamp(1.25rem, 1rem + 1vw, 2rem);
+}
+.band-head h2 { margin: 0; }
+
+.carousel-arrows { display: flex; gap: 0.5rem; }
+.is-static .carousel-arrows { visibility: hidden; }
+
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+.arrow svg {
+  width: 20px; height: 20px;
+  fill: none; stroke: currentColor;
+  stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+}
+.arrow:hover:not(:disabled) { border-color: var(--accent); background: var(--sky); }
+.arrow:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.arrow:disabled { opacity: 0.35; cursor: default; }
+
+.card-track {
+  display: flex;
+  gap: clamp(1rem, 0.75rem + 1vw, 1.75rem);
+  margin: 0;
+  padding: 0.25rem var(--gutter) 1rem;   /* room for the focus ring and hover lift */
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: none;
+}
+.card-track::-webkit-scrollbar { display: none; }
+
+.project-card {
+  flex: 0 0 clamp(260px, 38vw, 520px);
+  scroll-snap-align: start;
+}
+.project-card > a {
+  display: block;
+  text-decoration: none;
+  border-radius: 20px;
+}
+.project-card > a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.card-cover {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--tint, var(--p-rose)) 70%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--tint, var(--p-rose)) 80%, var(--ink) 6%);
+}
+.card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 400ms ease;
+}
+.project-card a:hover .card-cover img { scale: 1.03; }
+
+/* no cover yet: the wash, with a faint bubble so it still looks intended */
+.project-card.no-art .card-cover,
+.project-card.is-soon .card-cover {
+  background:
+    radial-gradient(circle at 70% 35%, var(--bubble-skin) 0 18%, transparent 18.5%),
+    radial-gradient(circle at 30% 70%, var(--bubble-skin) 0 10%, transparent 10.5%),
+    color-mix(in srgb, var(--tint, var(--p-rose)) 70%, var(--bg));
+}
+.project-card.is-soon .card-cover {
+  border-style: dashed;
+  opacity: 0.7;
+}
+
+.card-name {
+  margin: 0.9rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.3rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.project-card a:hover .card-name { color: var(--accent-ink); }
+
+.card-soon {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
+@media (max-width: 560px) {
+  .project-card { flex-basis: 82vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-cover img { transition: none; }
+}

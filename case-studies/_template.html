@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- TODO: project name -->
+  <title>Project name — Uju Duru</title>
+  <meta name="description" content="Case study: [one-line summary of the problem and outcome].">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link id="display-font" rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@400;500;700;800&display=swap">
+
+  <link rel="stylesheet" href="../css/style.css?v=7">
+  <link rel="stylesheet" href="../css/case-study.css?v=1">
+</head>
+<body class="case">
+
+<!-- ===================================================================
+     CASE STUDY TEMPLATE
+     How to use:
+       1. Copy this file to case-studies/<slug>.html (e.g. activebuilding.html).
+       2. Put images in assets/projects/<slug>/ and swap each .ph block for
+          <figure><img src="../assets/projects/<slug>/x.png" alt="..."><figcaption>…</figcaption></figure>
+       3. Replace every .hint paragraph with your own writing, then delete the hint.
+       4. Point the card on index.html at the new page.
+     Reviewers skim. Assume about two minutes per case study: lead with the outcome,
+     caption every image, and cut anything that doesn't answer "why does this matter?"
+     Confidential work: rename the product, round the numbers, rebuild screens
+     with placeholder data. Keep the reasoning real.
+     =================================================================== -->
+
+  <header class="site-header">
+    <a class="wordmark" href="../index.html">Uju Duru</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html#case-studies">Case studies</a></li>
+        <li><a href="../index.html#art">Art</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ HERO: what it is and how it ended, in ten seconds ============ -->
+    <section class="cs-hero">
+      <a class="cs-back" href="../index.html#case-studies">← All case studies</a>
+      <p class="cs-eyebrow">Concept project · Web app</p>
+      <h1 class="cs-title">Project name</h1>
+      <p class="cs-lede">
+        One sentence that states the outcome: <em>I redesigned [thing] so [users] could
+        [goal], cutting [metric] by [amount].</em>
+      </p>
+
+      <dl class="cs-meta">
+        <div><dt>Role</dt><dd>UX research, interaction design, prototyping</dd></div>
+        <div><dt>Team</dt><dd>Solo · or · 1 PM, 2 engineers</dd></div>
+        <div><dt>Timeline</dt><dd>6 weeks, 2026</dd></div>
+        <div><dt>Tools</dt><dd>Figma, Maze, HTML/CSS</dd></div>
+      </dl>
+
+      <div class="ph ph-cover" role="img" aria-label="Placeholder for the cover image">
+        <span>Cover image · 1600 × 900 · the final design at its best</span>
+      </div>
+    </section>
+
+    <div class="cs-layout">
+      <!-- ============ ON THIS PAGE: sticky on wide screens ============ -->
+      <nav class="cs-toc" aria-label="On this page">
+        <p class="cs-toc-title">On this page</p>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#problem">The problem</a></li>
+          <li><a href="#role">My role</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#reframe">Reframe</a></li>
+          <li><a href="#exploration">Exploration</a></li>
+          <li><a href="#iteration">Iteration</a></li>
+          <li><a href="#final">Final design</a></li>
+          <li><a href="#impact">Impact</a></li>
+          <li><a href="#reflection">Reflection</a></li>
+        </ol>
+      </nav>
+
+      <article class="cs-body">
+
+        <!-- ============ 1. OVERVIEW / TL;DR ============ -->
+        <section id="overview" class="cs-section">
+          <h2>Overview</h2>
+          <div class="tldr">
+            <div class="tldr-item">
+              <h3>Problem</h3>
+              <p class="hint">What was broken, for whom, in one or two lines.</p>
+            </div>
+            <div class="tldr-item">
+              <h3>Solution</h3>
+              <p class="hint">What you designed, in one or two lines.</p>
+            </div>
+            <div class="tldr-item">
+              <h3>Outcome</h3>
+              <p class="hint">The result. A number if you have one, an honest proxy if you don't.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ 2. THE PROBLEM ============ -->
+        <section id="problem" class="cs-section">
+          <h2>The problem</h2>
+          <p class="hint">
+            Context in one short paragraph. Who uses this, what they were trying to do, and
+            what got in the way. Then why it mattered to the business: lost revenue, support
+            load, churn, a missed goal.
+          </p>
+          <blockquote class="cs-statement">
+            <span class="label">Starting problem statement</span>
+            [User] needs a way to [goal] because [insight], but currently [obstacle].
+          </blockquote>
+          <p class="hint">Constraints worth naming: timeline, platform, tech stack, accessibility requirements.</p>
+        </section>
+
+        <!-- ============ 3. MY ROLE ============ -->
+        <section id="role" class="cs-section">
+          <h2>My role</h2>
+          <p class="hint">Say exactly what <strong>you</strong> did. Use "I" for your work and "we" for the team's.</p>
+          <ul class="cs-list">
+            <li>Planned and ran [n] user interviews</li>
+            <li>Led synthesis and wrote the reframed problem statement</li>
+            <li>Designed flows, wireframes and the high-fidelity prototype</li>
+            <li>Ran [n] rounds of usability testing</li>
+            <li>Built the front end in [stack] / partnered with engineering on handoff</li>
+          </ul>
+        </section>
+
+        <!-- ============ 4. RESEARCH ============ -->
+        <section id="research" class="cs-section">
+          <h2>Research</h2>
+          <p class="hint">Which methods you used and why each fit the question. Keep this short; the insights are the point.</p>
+          <ul class="chips" aria-label="Methods">
+            <li>6 user interviews</li>
+            <li>Survey · 40 responses</li>
+            <li>Competitive analysis</li>
+            <li>Heuristic audit</li>
+            <li>Analytics review</li>
+          </ul>
+
+          <h3 class="cs-sub">What I learned</h3>
+          <div class="insights">
+            <div class="insight">
+              <span class="insight-num">01</span>
+              <p class="insight-head">An insight explains <em>why</em>, not just <em>what</em>.</p>
+              <p class="hint">"Users skip onboarding" is an observation. "Users skip onboarding because they want proof of value first" is an insight.</p>
+              <p class="insight-quote">"A real quote from a participant that backs this up."</p>
+            </div>
+            <div class="insight">
+              <span class="insight-num">02</span>
+              <p class="insight-head">Second key insight.</p>
+              <p class="hint">Two or three insights total. Leave the rest of the findings in your notes.</p>
+              <p class="insight-quote">"Supporting quote."</p>
+            </div>
+            <div class="insight">
+              <span class="insight-num">03</span>
+              <p class="insight-head">Third key insight.</p>
+              <p class="hint">Ideally one of these surprised you and changed the direction.</p>
+              <p class="insight-quote">"Supporting quote."</p>
+            </div>
+          </div>
+
+          <div class="ph ph-wide" role="img" aria-label="Placeholder for a synthesis artifact">
+            <span>Affinity map, journey map or persona · one strong artifact, not five</span>
+          </div>
+        </section>
+
+        <!-- ============ 5. REFRAME ============ -->
+        <section id="reframe" class="cs-section">
+          <h2>Reframe</h2>
+          <p class="hint">How research changed the problem. This shift is often the most interesting part of the whole story.</p>
+          <div class="reframe">
+            <div class="reframe-card is-before">
+              <span class="label">I thought the problem was</span>
+              <p>"Users need more features on the dashboard."</p>
+            </div>
+            <span class="reframe-arrow" aria-hidden="true">→</span>
+            <div class="reframe-card is-after">
+              <span class="label">It turned out to be</span>
+              <p>"Users can't find the one thing they came to do."</p>
+            </div>
+          </div>
+          <p class="cs-hmw"><strong>How might we</strong> [let users do X within Y]?</p>
+        </section>
+
+        <!-- ============ 6. EXPLORATION ============ -->
+        <section id="exploration" class="cs-section">
+          <h2>Exploration</h2>
+          <p class="hint">Show two or three genuinely different directions and why you picked one. Showing what you rejected shows judgment.</p>
+          <div class="directions">
+            <figure class="direction">
+              <div class="ph" role="img" aria-label="Placeholder for direction A sketch"><span>Sketch / wireframe</span></div>
+              <figcaption><strong>A · Direction name.</strong> Why it was tempting, and why it fell short.</figcaption>
+            </figure>
+            <figure class="direction is-chosen">
+              <div class="ph" role="img" aria-label="Placeholder for direction B sketch"><span>Sketch / wireframe</span></div>
+              <figcaption><span class="chosen-tag">Chosen</span><strong>B · Direction name.</strong> Why this one won, tied to an insight.</figcaption>
+            </figure>
+            <figure class="direction">
+              <div class="ph" role="img" aria-label="Placeholder for direction C sketch"><span>Sketch / wireframe</span></div>
+              <figcaption><strong>C · Direction name.</strong> What you kept from it.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- ============ 7. ITERATION — the heart of it ============ -->
+        <section id="iteration" class="cs-section">
+          <h2>Iteration</h2>
+          <p class="hint">
+            Each pair is: what testing showed, what you changed, and the evidence. Copy the
+            block for every meaningful change, ordered by impact.
+          </p>
+
+          <div class="iteration">
+            <div class="iter-pair">
+              <figure>
+                <div class="ph" role="img" aria-label="Placeholder for the before screen"><span>Before</span></div>
+                <figcaption>Before</figcaption>
+              </figure>
+              <figure>
+                <div class="ph" role="img" aria-label="Placeholder for the after screen"><span>After</span></div>
+                <figcaption>After</figcaption>
+              </figure>
+            </div>
+            <dl class="iter-why">
+              <div><dt>Testing showed</dt><dd>4 of 5 participants missed the primary action.</dd></div>
+              <div><dt>So I changed</dt><dd>Promoted it to a full-width button and removed two competing links.</dd></div>
+              <div><dt>Result</dt><dd>All 5 found it in round two, in under 10 seconds.</dd></div>
+            </dl>
+          </div>
+
+          <div class="iteration">
+            <div class="iter-pair">
+              <figure>
+                <div class="ph" role="img" aria-label="Placeholder for the before screen"><span>Before</span></div>
+                <figcaption>Before</figcaption>
+              </figure>
+              <figure>
+                <div class="ph" role="img" aria-label="Placeholder for the after screen"><span>After</span></div>
+                <figcaption>After</figcaption>
+              </figure>
+            </div>
+            <dl class="iter-why">
+              <div><dt>Testing showed</dt><dd>[Observation]</dd></div>
+              <div><dt>So I changed</dt><dd>[Change]</dd></div>
+              <div><dt>Result</dt><dd>[Evidence]</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <!-- ============ 8. FINAL DESIGN ============ -->
+        <section id="final" class="cs-section">
+          <h2>Final design</h2>
+          <p class="hint">Lead with the key flow. Include the states that prove rigor: empty, error, loading, mobile, dark mode.</p>
+
+          <div class="ph ph-wide ph-tall" role="img" aria-label="Placeholder for the hero screen or prototype video">
+            <span>Hero screen or prototype video / GIF</span>
+          </div>
+
+          <div class="gallery">
+            <figure>
+              <div class="ph" role="img" aria-label="Placeholder for a key screen"><span>Key screen</span></div>
+              <figcaption>Caption: what this screen does and the decision behind it.</figcaption>
+            </figure>
+            <figure>
+              <div class="ph" role="img" aria-label="Placeholder for a key screen"><span>Key screen</span></div>
+              <figcaption>Caption.</figcaption>
+            </figure>
+            <figure>
+              <div class="ph" role="img" aria-label="Placeholder for an edge-case state"><span>Empty / error state</span></div>
+              <figcaption>Caption.</figcaption>
+            </figure>
+            <figure>
+              <div class="ph" role="img" aria-label="Placeholder for the mobile view"><span>Mobile</span></div>
+              <figcaption>Caption.</figcaption>
+            </figure>
+          </div>
+
+          <p class="hint">
+            Accessibility notes worth a line: contrast checked to WCAG AA, focus order,
+            touch targets, reduced motion. As a design engineer, say what you built yourself.
+          </p>
+        </section>
+
+        <!-- ============ 9. IMPACT ============ -->
+        <section id="impact" class="cs-section">
+          <h2>Impact</h2>
+          <div class="stats">
+            <div class="stat"><span class="stat-num">−40%</span><span class="stat-label">time to complete task</span></div>
+            <div class="stat"><span class="stat-num">5 / 5</span><span class="stat-label">task success in final test</span></div>
+            <div class="stat"><span class="stat-num">+18</span><span class="stat-label">SUS score vs. baseline</span></div>
+          </div>
+          <blockquote class="cs-quote">
+            "A quote from a user or stakeholder about the result."
+            <cite>Participant, round 3</cite>
+          </blockquote>
+          <p class="hint">
+            No data or didn't ship? Say so plainly, and describe how you would measure it.
+            Never invent numbers.
+          </p>
+        </section>
+
+        <!-- ============ 10. REFLECTION ============ -->
+        <section id="reflection" class="cs-section">
+          <h2>Reflection</h2>
+          <div class="reflect">
+            <div><h3>What worked</h3><p class="hint">One or two lines.</p></div>
+            <div><h3>What I'd do differently</h3><p class="hint">Be honest. This reads as maturity, not weakness.</p></div>
+            <div><h3>What's next</h3><p class="hint">The next iteration you'd test.</p></div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+
+    <!-- ============ NEXT PROJECT ============ -->
+    <!-- TODO: point at the next case study -->
+    <a class="cs-next" href="../index.html#case-studies">
+      <span class="label">Next case study</span>
+      <span class="cs-next-name">Next project name →</span>
+    </a>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-say">
+        <h2>Say hello</h2>
+        <p>Open to UX and design engineering work.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="mailto:ujuduru1@gmail.com">ujuduru1@gmail.com</a></li>
+        <li><a href="#" data-todo="linkedin url">LinkedIn</a></li>
+        <li><a href="#" data-todo="github url">GitHub</a></li>
+        <li><a href="#" data-todo="instagram / art url">Art</a></li>
+      </ul>
+    </div>
+    <p class="footer-fine">© <span id="year">2026</span> Uju Duru</p>
+  </footer>
+
+  <script src="../js/site.js?v=7"></script>
+  <script src="../js/case-study.js?v=1"></script>
+</body>
+</html>

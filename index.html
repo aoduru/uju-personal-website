@@ -16,15 +16,17 @@
   <!-- bump ?v= when you edit these, so browsers pick up the change -->
   <link rel="stylesheet" href="css/style.css?v=6">
 
-  <!-- Artwork can be .png or .svg. Try png, then svg, then show the word.
+  <!-- Artwork can be .png or .svg. Try png, then svg, then show the word (or a blank cover).
        Defined here because images start loading before the body script runs. -->
   <script>
     function pickFormat(img, fallback) {
       if (!img.dataset.tried) { img.dataset.tried = '1'; img.src = fallback; return; }
       var bubble = img.closest('.bubble');
       var hero = img.closest('.me-bubble');
+      var card = img.closest('.project-card');
       if (bubble) bubble.classList.add('no-art');
       if (hero) hero.classList.add('is-placeholder');
+      if (card) card.classList.add('no-art');
       img.remove();
     }
   </script>
@@ -102,10 +104,51 @@
       </div>
     </section>
 
-    <!-- ============ SECTION STUBS (so the nav links land somewhere) ============ -->
-    <section id="case-studies" class="band">
-      <h2>Case studies</h2>
-      <p class="todo">Placeholder — case study cards go here.</p>
+        <!-- ============ CASE STUDIES: swipeable cards ============ -->
+    <!-- One <li> per project. Cover art goes in assets/projects/<slug>.png (or .svg),
+         ideally 1600x1200 (4:3). Until it exists the card shows a pastel wash with the name.
+         --tint picks the wash colour from the pastels in css/style.css.
+         To add a project: copy case-studies/_template.html to case-studies/<slug>.html,
+         copy one <li> below, and point its href at the new page. -->
+    <section id="case-studies" class="band band-carousel" data-carousel aria-labelledby="cs-title">
+      <div class="band-head">
+        <h2 id="cs-title">Case studies</h2>
+        <div class="carousel-arrows">
+          <button class="arrow" type="button" data-dir="prev" aria-label="Previous case study" aria-controls="cs-track">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <button class="arrow" type="button" data-dir="next" aria-label="Next case study" aria-controls="cs-track">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <ul class="card-track" id="cs-track">
+        <li class="project-card" style="--tint: var(--p-lilac)">
+          <!-- TODO: point at case-studies/activebuilding.html once you copy the template -->
+          <a href="case-studies/_template.html">
+            <div class="card-cover">
+              <img src="assets/projects/activebuilding.png" alt="" loading="lazy"
+                   onerror="pickFormat(this, 'assets/projects/activebuilding.svg')">
+            </div>
+            <h3 class="card-name">Redesigning ActiveBuilding</h3>
+          </a>
+        </li>
+        <li class="project-card" style="--tint: var(--p-sky)">
+          <!-- TODO: point at case-studies/tutoring.html once you copy the template -->
+          <a href="case-studies/_template.html">
+            <div class="card-cover">
+              <img src="assets/projects/tutoring.png" alt="" loading="lazy"
+                   onerror="pickFormat(this, 'assets/projects/tutoring.svg')">
+            </div>
+            <h3 class="card-name">Designing an Online Tutoring Service</h3>
+          </a>
+        </li>
+        <li class="project-card is-soon" style="--tint: var(--p-peach)">
+          <div class="card-cover"></div>
+          <h3 class="card-name">Next case study <span class="card-soon">In progress</span></h3>
+        </li>
+      </ul>
     </section>
 
     <section id="art" class="band">
@@ -138,6 +181,8 @@
     <p class="footer-fine">© <span id="year">2026</span> Uju Duru</p>
   </footer>
 
+  <script src="js/site.js?v=6"></script>
   <script src="js/bubbles.js?v=6"></script>
+  <script src="js/carousel.js?v=6"></script>
 </body>
 </html>

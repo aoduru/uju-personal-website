@@ -4,11 +4,25 @@ Portfolio site for Uju Duru. Plain HTML, CSS and one small JS file — no framew
 no build step. Open `index.html` or serve the folder.
 
 ```
-index.html        header, bubble hero, section stubs, footer
-css/style.css     design tokens at the top, then header / hero / footer
-js/bubbles.js     bubble popping + sound, display-font switcher
-assets/           illustration and sounds (see assets/README.md)
+index.html                  header, bubble hero, case study cards, section stubs, footer
+case-studies/_template.html the case study template — copy it per project
+css/style.css               design tokens at the top, then header / hero / cards / footer
+css/case-study.css          case study page layout (reuses the tokens)
+js/site.js                  every page: theme, ?bg= / ?font= trials, footer year
+js/bubbles.js               bubble popping + sound
+js/carousel.js              arrow buttons for the swipeable cards
+js/case-study.js            highlights the current section in "On this page"
+assets/                     illustration and sounds (see assets/README.md)
 ```
+
+## Adding a case study
+
+1. Copy `case-studies/_template.html` to `case-studies/<slug>.html` and fill it in.
+   Grey italic text is a writing prompt; replace it and drop the `hint` class.
+2. Put the card cover at `assets/projects/<slug>.png` (1600x1200, 4:3). Until it
+   exists the card shows a pastel wash, so nothing looks broken.
+3. In `index.html`, copy one `<li class="project-card">`, set its `--tint`, name
+   and `href`. The cards swipe on touch, scroll on a trackpad, and have arrows.
 
 ## Trying the display font
 
