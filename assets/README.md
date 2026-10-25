@@ -26,9 +26,9 @@ genuinely short sounds better than a long one cut off. Until a file exists the b
 synthesises its own version of that sound, so the page is playable without audio
 and every bubble already sounds different.
 
-Music is two bubbles, not one: guitar for playing, singing for your voice.
+Music is two stickers, not one: guitar for playing, singing for your voice.
 
-## If the bubbles are separate art in Figma
+## If the stickers are separate art in Figma
 Export each as its own SVG and we swap the CSS circles for them. The
 `--x` / `--y` / `--size` custom properties stay, so positioning carries over.
 
@@ -38,7 +38,7 @@ attribution here — some require credit even for personal sites.
 
 ## Bubble sketches
 
-One drawing per bubble, in `assets/bubbles/`, named for its `data-sound`:
+One drawing per bubble, in `assets/stickers/`, named for its `data-sound`:
 
 `reading` · `plane` · `singing` · `guitar` · `drawing` · `games`
 — each as `.png` (preferred for your art) or `.svg`
@@ -68,7 +68,7 @@ to SVG flattens the texture that makes it yours.
 What makes them drop in cleanly:
 
 - **Export at 512x512.** That is about 8x what the biggest bubble renders (around
-  65px), so it stays crisp on retina and survives you enlarging the bubbles later.
+  65px), so it stays crisp on retina and survives you enlarging the stickers later.
 - **Square artboard**, with the drawing filling about 70% of it. The bubble sizes
   the art to 62% of its diameter, so leaving air in the export keeps the sketch
   off the rim.
@@ -106,7 +106,7 @@ personal and educational use only, which a professional portfolio is not.
 
 ### What to search for
 
-| bubble | search terms |
+| sticker | search terms |
 | --- | --- |
 | reading | page turn · book page flip · riffling pages |
 | plane | airplane takeoff · jet flyby · cabin chime |
