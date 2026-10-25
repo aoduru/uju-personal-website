@@ -44,6 +44,14 @@
   --rule: #EFE4DF;
   --accent: #CA8A88;
   --accent-ink: #9E5956;
+
+  /* Dot grid, like sketchbook paper. A regular square grid rather than an
+     offset one: dot-grid notebooks are square, and the even rhythm is what
+     reads as "something you could draw on". */
+  --dot: rgba(202, 138, 136, 0.30);
+  --dot-gap: 10px;
+  --dot-r: 0.9px;
+
   --bubble-skin: rgba(255, 255, 255, 0.45);
   --bubble-edge: rgba(202, 138, 136, 0.55);
 
@@ -77,6 +85,7 @@
     --rule: #252E3C;
     --accent: #E0A5A2;
     --accent-ink: #E8B8B5;
+    --dot: rgba(224, 165, 162, 0.22);
     --bubble-skin: rgba(232, 238, 247, 0.07);
     --bubble-edge: rgba(224, 165, 162, 0.5);
   }
@@ -88,6 +97,7 @@
   --rule: #252E3C;
   --accent: #E0A5A2;
   --accent-ink: #E8B8B5;
+  --dot: rgba(224, 165, 162, 0.22);
   --bubble-skin: rgba(232, 238, 247, 0.07);
   --bubble-edge: rgba(224, 165, 162, 0.5);
 }
@@ -97,7 +107,10 @@
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: radial-gradient(circle at center,
+    var(--dot) var(--dot-r), transparent calc(var(--dot-r) + 0.5px));
+  background-size: var(--dot-gap) var(--dot-gap);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1rem;
