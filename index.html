@@ -21,10 +21,10 @@
   <script>
     function pickFormat(img, fallback) {
       if (!img.dataset.tried) { img.dataset.tried = '1'; img.src = fallback; return; }
-      var bubble = img.closest('.bubble');
-      var hero = img.closest('.me-bubble');
+      var sticker = img.closest('.sticker');
+      var hero = img.closest('.me');
       var card = img.closest('.project-card');
-      if (bubble) bubble.classList.add('no-art');
+      if (sticker) sticker.classList.add('no-art');
       if (hero) hero.classList.add('is-placeholder');
       if (card) card.classList.add('no-art');
       img.remove();
@@ -55,46 +55,75 @@
     <section class="scene" aria-labelledby="scene-title">
       <h1 id="scene-title" class="visually-hidden">Uju Duru — UX and design engineer</h1>
 
+      <!-- The stickers are applied to the page. Uju is drawn into it: no die-cut
+           border, no shadow, no lift, nothing to peel. That difference is the
+           whole idea, so keep it if you restyle these. -->
       <div class="stage" id="stage">
-        <figure class="me-bubble">
-          <img src="assets/me-in-bubble.png" alt="Uju, floating inside a bubble"
+        <figure class="me">
+          <img src="assets/me-in-bubble.png" alt="Uju, sitting cross-legged and reading"
                onerror="pickFormat(this, 'assets/me-in-bubble.svg')">
-          <figcaption class="placeholder-note">assets/me-in-bubble.svg</figcaption>
+          <figcaption class="placeholder-note">assets/me-in-bubble.png</figcaption>
         </figure>
 
-        <button class="bubble" data-sound="reading" style="--x:13%; --y:24%; --size:104px">
-          <img class="bubble-art" src="assets/bubbles/reading.png" alt=""
-               onerror="pickFormat(this, 'assets/bubbles/reading.svg')">
-          <span class="bubble-label">Reading</span>
+        <button class="sticker" data-sound="reading" data-started
+                style="--x:13%; --y:24%; --size:104px; --tilt:-2.5deg">
+          <span class="sticker-inner">
+            <img class="sticker-art" src="assets/bubbles/reading.png" alt=""
+                 onerror="pickFormat(this, 'assets/bubbles/reading.svg')">
+            <span class="sticker-label">Reading</span>
+          </span>
         </button>
-        <button class="bubble" data-sound="plane" style="--x:84%; --y:18%; --size:96px">
-          <img class="bubble-art" src="assets/bubbles/plane.png" alt=""
-               onerror="pickFormat(this, 'assets/bubbles/plane.svg')">
-          <span class="bubble-label">Travel</span>
+        <button class="sticker" data-sound="plane"
+                style="--x:84%; --y:18%; --size:96px; --tilt:1.8deg">
+          <span class="sticker-inner">
+            <img class="sticker-art" src="assets/bubbles/plane.png" alt=""
+                 onerror="pickFormat(this, 'assets/bubbles/plane.svg')">
+            <span class="sticker-label">Travel</span>
+          </span>
         </button>
-        <button class="bubble" data-sound="singing" style="--x:8%; --y:64%; --size:92px">
-          <img class="bubble-art" src="assets/bubbles/singing.png" alt=""
-               onerror="pickFormat(this, 'assets/bubbles/singing.svg')">
-          <span class="bubble-label">Singing</span>
+        <button class="sticker" data-sound="singing"
+                style="--x:8%; --y:64%; --size:92px; --tilt:2.4deg">
+          <span class="sticker-inner">
+            <img class="sticker-art" src="assets/bubbles/singing.png" alt=""
+                 onerror="pickFormat(this, 'assets/bubbles/singing.svg')">
+            <span class="sticker-label">Singing</span>
+          </span>
         </button>
-        <button class="bubble" data-sound="guitar" style="--x:90%; --y:60%; --size:88px">
-          <img class="bubble-art" src="assets/bubbles/guitar.png" alt=""
-               onerror="pickFormat(this, 'assets/bubbles/guitar.svg')">
-          <span class="bubble-label">Guitar</span>
+        <button class="sticker" data-sound="guitar"
+                style="--x:90%; --y:60%; --size:88px; --tilt:-1.6deg">
+          <span class="sticker-inner">
+            <img class="sticker-art" src="assets/bubbles/guitar.png" alt=""
+                 onerror="pickFormat(this, 'assets/bubbles/guitar.svg')">
+            <span class="sticker-label">Guitar</span>
+          </span>
         </button>
-        <button class="bubble" data-sound="drawing" style="--x:28%; --y:87%; --size:84px">
-          <img class="bubble-art" src="assets/bubbles/drawing.png" alt=""
-               onerror="pickFormat(this, 'assets/bubbles/drawing.svg')">
-          <span class="bubble-label">Drawing</span>
+        <button class="sticker" data-sound="drawing"
+                style="--x:28%; --y:87%; --size:84px; --tilt:1.2deg">
+          <span class="sticker-inner">
+            <img class="sticker-art" src="assets/bubbles/drawing.png" alt=""
+                 onerror="pickFormat(this, 'assets/bubbles/drawing.svg')">
+            <span class="sticker-label">Drawing</span>
+          </span>
         </button>
-        <button class="bubble" data-sound="games" style="--x:68%; --y:89%; --size:76px">
-          <img class="bubble-art" src="assets/bubbles/games.png" alt=""
-               onerror="pickFormat(this, 'assets/bubbles/games.svg')">
-          <span class="bubble-label">Games</span>
+        <button class="sticker" data-sound="games"
+                style="--x:68%; --y:89%; --size:76px; --tilt:-2deg">
+          <span class="sticker-inner">
+            <img class="sticker-art" src="assets/bubbles/games.png" alt=""
+                 onerror="pickFormat(this, 'assets/bubbles/games.svg')">
+            <span class="sticker-label">Games</span>
+          </span>
         </button>
       </div>
 
-      <p class="scene-hint">Pop a bubble.</p>
+      <p class="scene-hint">Peel a sticker.</p>
+
+      <!-- Peeled stickers land here. The label is the only place the idea is
+           ever stated, and only once the page is bare. -->
+      <div class="tray" id="tray">
+        <p class="tray-label"><span id="tray-text">things i like</span> <span class="tray-count" id="tray-count">(0 of 6)</span></p>
+        <ul class="tray-items" id="tray-items"></ul>
+        <button id="restick" class="pill tray-restick" type="button" hidden>stick them back on</button>
+      </div>
 
       <div class="scene-controls">
         <button id="mute" class="pill" type="button" aria-pressed="false">
@@ -182,7 +211,7 @@
   </footer>
 
   <script src="js/site.js?v=8"></script>
-  <script src="js/bubbles.js?v=8"></script>
+  <script src="js/stickers.js?v=8"></script>
   <script src="js/carousel.js?v=8"></script>
 </body>
 </html>

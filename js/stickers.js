@@ -1,5 +1,5 @@
 /* ===========================================================
-   bubbles.js — each bubble pops with its own sound
+   stickers.js — peel a sticker, hear what it is
 
    Every interest has a distinct synthesised sound, so the page
    is playable today with no audio files at all:
@@ -11,15 +11,18 @@
    Drop a real recording at assets/sound/<name>.mp3 and it plays
    that instead, automatically. Nothing here needs changing.
 
-   Storyboard rules this follows:
-     - popping is a toy, not a door: it never navigates
+   Peeling plays a short crackle (the gesture) under the interest's own
+   sound (the reward), then the sticker curls up and flies into the tray.
+
+   Rules this follows:
+     - peeling is a toy, not a door: it never navigates
      - sound stays off until a click, with a visible mute control
+     - Uju is not a sticker and has no peel behaviour at all
    =========================================================== */
 
 (function () {
   'use strict';
 
-  var RESPAWN_MS = 1400;
   var MAX_PLAY_MS = 1600;   // a pop is a punctuation mark, not a track
   var FADE_MS = 250;
   var playing = null;
@@ -192,6 +195,39 @@
     }
   };
 
+  // The peel itself: a scatter of tiny clicks, irregular so it sounds like
+  // backing paper letting go rather than a single tick.
+  function crackle() {
+    var ac = audio();
+    if (!ac) return;
+    var t = ac.currentTime + 0.01;
+    for (var i = 0; i < 14; i++) {
+      var at = t + i * 0.018 + Math.random() * 0.012;
+      var src = noise(ac);
+      var hp = ac.createBiquadFilter();
+      var gain = ac.createGain();
+      hp.type = 'highpass';
+      hp.frequency.value = 2200 + Math.random() * 1800;
+      var peak = 0.05 + Math.random() * 0.05;
+      gain.gain.setValueAtTime(0.0001, at);
+      gain.gain.exponentialRampToValueAtTime(peak, at + 0.004);
+      gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.03);
+      src.connect(hp).connect(gain).connect(ac.destination);
+      src.start(at);
+      src.stop(at + 0.04);
+    }
+  }
+
+  // The crackle rides its own channel so it layers under the interest sound
+  // instead of cutting it off the way a second interest sound would.
+  function peelSound() {
+    if (muted) return;
+    var file = new Audio('assets/sound/peel.mp3');
+    file.volume = 0.5;
+    var attempt = file.play();
+    if (attempt && typeof attempt.catch === 'function') attempt.catch(crackle);
+  }
+
   function synth(name) {
     var ac = audio();
     if (!ac) return;
@@ -234,25 +270,93 @@
     }, MAX_PLAY_MS - FADE_MS);
   }
 
-  /* ---------- pop ---------- */
-  function pop(bubble) {
-    if (bubble.classList.contains('is-popped')) return;
-    play(bubble.dataset.sound);
-    bubble.classList.add('is-popped');
-    bubble.setAttribute('aria-pressed', 'true');
-    window.setTimeout(function () {
-      bubble.classList.remove('is-popped');
-      bubble.removeAttribute('aria-pressed');
-    }, RESPAWN_MS);
+  /* ---------- peel ---------- */
+  var tray = document.getElementById('tray-items');
+  var trayText = document.getElementById('tray-text');
+  var trayCount = document.getElementById('tray-count');
+  var restick = document.getElementById('restick');
+  var stage = document.getElementById('stage');
+  var stickers = stage ? [].slice.call(stage.querySelectorAll('.sticker')) : [];
+  var peeled = [];
+
+  function updateTray() {
+    if (trayCount) trayCount.textContent = '(' + peeled.length + ' of ' + stickers.length + ')';
+    // The only place the idea is ever said out loud, and only once the page is bare.
+    if (trayText) {
+      trayText.textContent = (peeled.length && peeled.length === stickers.length)
+        ? 'things i like \u00b7 still here'
+        : 'things i like';
+    }
+    if (restick) restick.hidden = peeled.length === 0;
   }
 
-  var stage = document.getElementById('stage');
-  if (stage) {
-    stage.addEventListener('click', function (event) {
-      var bubble = event.target.closest('.bubble');
-      if (bubble) pop(bubble);
+  function trayItem(sticker) {
+    var li = document.createElement('li');
+    li.className = 'tray-item';
+    li.style.setProperty('--tint', getComputedStyle(sticker).getPropertyValue('--tint'));
+    li.style.setProperty('--tilt', (Math.random() * 10 - 5).toFixed(1) + 'deg');
+    var art = sticker.querySelector('.sticker-art');
+    if (art) {
+      var img = document.createElement('img');
+      img.src = art.getAttribute('src');
+      img.alt = '';
+      li.appendChild(img);
+    } else {
+      li.textContent = sticker.textContent.trim().slice(0, 2);
+    }
+    li.title = sticker.textContent.trim();
+    return li;
+  }
+
+  function peel(sticker) {
+    if (sticker.classList.contains('is-peeling') || sticker.hidden) return;
+
+    peelSound();
+    play(sticker.dataset.sound);
+
+    // Aim the flight at the tray, so it lands where the stickers collect.
+    if (tray) {
+      var from = sticker.getBoundingClientRect();
+      var to = tray.getBoundingClientRect();
+      var targetX = to.left + Math.min(to.width - 40, 28 + peeled.length * 58);
+      sticker.style.setProperty('--fly-x', Math.round(targetX - from.left) + 'px');
+      sticker.style.setProperty('--fly-y', Math.round(to.top + to.height / 2 - (from.top + from.height / 2)) + 'px');
+    }
+
+    sticker.classList.add('is-peeling');
+    sticker.setAttribute('aria-pressed', 'true');
+
+    var land = function () {
+      sticker.removeEventListener('animationend', land);
+      sticker.hidden = true;
+      sticker.classList.remove('is-peeling');
+      peeled.push(sticker);
+      if (tray) tray.appendChild(trayItem(sticker));
+      updateTray();
+    };
+    sticker.addEventListener('animationend', land);
+  }
+
+  stickers.forEach(function (sticker) {
+    sticker.addEventListener('click', function () { peel(sticker); });
+  });
+
+  if (restick) {
+    restick.addEventListener('click', function () {
+      if (tray) tray.innerHTML = '';
+      peeled = [];
+      stickers.forEach(function (sticker) {
+        sticker.hidden = false;
+        sticker.removeAttribute('aria-pressed');
+        sticker.style.removeProperty('--fly-x');
+        sticker.style.removeProperty('--fly-y');
+      });
+      updateTray();
+      crackle();
     });
   }
+
+  updateTray();
 
   /* ---------- mute ---------- */
   var muteBtn = document.getElementById('mute');

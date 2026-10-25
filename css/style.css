@@ -27,7 +27,7 @@
      Cream + pink. The pink has two jobs and two values, because
      #CA8A88 on #FFFDF8 is 2.75:1 — too low for body text (needs
      4.5:1) and even for large text (needs 3:1).
-       --accent      #CA8A88  your pink, for bubbles, rules, hovers
+       --accent      #CA8A88  your pink, for rules, hovers, accents
        --accent-ink  #9E5956  same hue, darkened to 5.1:1, for pink TEXT
        --ink         #3A2E2C  warm near-black, 12.9:1, for reading
   */
@@ -52,6 +52,7 @@
   --dot-gap: 10px;
   --dot-r: 0.9px;
 
+  /* used by the project-card placeholder wash */
   --bubble-skin: rgba(255, 255, 255, 0.45);
   --bubble-edge: rgba(202, 138, 136, 0.55);
 
@@ -168,7 +169,7 @@ a { color: inherit; }
 .site-nav a:focus-visible { border-bottom-color: var(--accent); }
 
 /* ===========================================================
-   HERO — the girl in the bubble
+   HERO — the sticker page
    =========================================================== */
 .scene {
   padding: clamp(1rem, 0.5rem + 2vw, 3rem) var(--gutter) clamp(2rem, 1rem + 3vw, 4rem);
@@ -183,89 +184,105 @@ a { color: inherit; }
   min-height: 380px;
 }
 
-/* you, in the big bubble */
-.me-bubble {
+/* Uju: drawn into the paper. No border, no shadow, no lift — the one thing
+   on this page that cannot be peeled off. */
+.me {
   position: absolute;
   inset: 50% auto auto 50%;
   translate: -50% -50%;
   width: min(46%, 440px);
   margin: 0;
-  animation: float 9s ease-in-out infinite;
 }
-.me-bubble .placeholder-note { display: none; }
-.me-bubble.is-placeholder {
+.me .placeholder-note { display: none; }
+.me.is-placeholder {
   aspect-ratio: 1;
   display: grid;
   place-items: center;
-  border: 1.5px dashed var(--bubble-edge);
+  border: 1.5px dashed var(--rule);
   border-radius: 50%;
-  background: var(--bubble-skin);
 }
-.me-bubble.is-placeholder .placeholder-note {
+.me.is-placeholder .placeholder-note {
   display: block;
   font-size: 0.8rem;
   color: var(--ink-soft);
 }
 
-/* one per interest */
-.bubble {
+/* ---------- Stickers ---------- */
+.sticker[data-sound="reading"] { --tint: var(--p-lilac); }
+.sticker[data-sound="plane"]   { --tint: var(--p-sky); }
+.sticker[data-sound="singing"] { --tint: var(--p-rose); }
+.sticker[data-sound="drawing"] { --tint: var(--p-peach); }
+.sticker[data-sound="guitar"]  { --tint: var(--p-butter); }
+.sticker[data-sound="games"]   { --tint: var(--p-mint); }
+
+.sticker {
   position: absolute;
   left: var(--x);
   top: var(--y);
-  translate: -50% -50%;
   width: var(--size);
   height: var(--size);
+  translate: -50% -50%;
+  rotate: var(--tilt, 0deg);     /* stickers are never applied straight */
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: grab;
+}
+
+/* The die cut: a white edge around the art, the way a cut sticker keeps a
+   margin of backing. The lift happens on this inner layer so the outer one
+   stays free to carry the sticker across to the tray. */
+.sticker-inner {
   display: grid;
   place-items: center;
-  padding: 0;
-  font: inherit;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--ink);
-  background: var(--bubble-skin);
-  border: 1.5px solid var(--bubble-edge);
-  border-radius: 50%;
-  cursor: pointer;
-  backdrop-filter: blur(2px);
-  animation: float 7s ease-in-out infinite;
-  animation-delay: calc(var(--size) * -0.03s);
-  transition: scale 120ms ease, background 200ms ease;
-}
-/* One pastel per interest. color-mix keeps them translucent, so the sky
-   shows through and they still read as bubbles rather than discs. */
-.bubble[data-sound="reading"] { --tint: var(--p-lilac); }
-.bubble[data-sound="plane"]   { --tint: var(--p-sky); }
-.bubble[data-sound="singing"] { --tint: var(--p-rose); }
-.bubble[data-sound="drawing"] { --tint: var(--p-peach); }
-.bubble[data-sound="guitar"]  { --tint: var(--p-butter); }
-.bubble[data-sound="games"]   { --tint: var(--p-mint); }
-
-.bubble[data-sound] {
-  background: color-mix(in srgb, var(--tint) 55%, transparent);
-  border-color: color-mix(in srgb, var(--tint) 90%, var(--ink) 8%);
-}
-.bubble[data-sound]:hover {
-  background: color-mix(in srgb, var(--tint) 80%, transparent);
+  width: 100%;
+  height: 100%;
+  border-radius: 24%;
+  background: color-mix(in srgb, var(--tint) 34%, #FFFFFF);
+  border: 4px solid #FFFFFF;
+  box-shadow: 0 2px 4px rgba(58, 46, 44, 0.16);
+  transform-origin: 14% 14%;
+  transition: transform 220ms cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 220ms ease;
+  will-change: transform;
 }
 
-.bubble:hover { scale: 1.06; }
+/* Hover is the invitation; the click commits. Rotating about the top-left
+   origin lifts the opposite corner toward the reader. */
+.sticker:hover .sticker-inner,
+.sticker:focus-visible .sticker-inner {
+  transform: perspective(620px) rotate3d(-1, 1, 0, 17deg) translateZ(6px);
+  box-shadow: 0 12px 20px rgba(58, 46, 44, 0.20);
+}
 
-/* the sketch inside the bubble. Kept off the rim so the circle still reads
-   as a bubble; SVG strokes set to currentColor inherit the pink. */
-.bubble-art {
-  /* A square box the art fits inside, so a tall drawing (a music note) and a
-     wide one (an open book) both sit within the circle instead of overflowing. */
-  width: 62%;
-  height: 62%;
+/* One sticker starts already peeled a little, which teaches the whole
+   interaction without a word of instruction. */
+.sticker[data-started] .sticker-inner {
+  transform: perspective(620px) rotate3d(-1, 1, 0, 11deg) translateZ(3px);
+  box-shadow: 0 8px 14px rgba(58, 46, 44, 0.18);
+}
+
+/* No hover on touch, so every sticker wears a lifted corner at rest. */
+@media (hover: none) {
+  .sticker .sticker-inner {
+    transform: perspective(620px) rotate3d(-1, 1, 0, 10deg) translateZ(3px);
+    box-shadow: 0 8px 14px rgba(58, 46, 44, 0.18);
+  }
+}
+
+.sticker:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.sticker:active { cursor: grabbing; }
+
+.sticker-art {
+  width: 64%;
+  height: 64%;
   object-fit: contain;
-  color: var(--ink);
   pointer-events: none;
   user-select: none;
 }
 
-/* The label is always in the accessibility tree. It only becomes visible
-   when a sketch is missing, so the page never shows an empty circle. */
-.bubble-label {
+/* Always in the accessibility tree; visible only when a drawing is missing. */
+.sticker-label {
   position: absolute;
   width: 1px; height: 1px;
   margin: -1px; padding: 0;
@@ -273,32 +290,91 @@ a { color: inherit; }
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
-.bubble.no-art .bubble-label {
+.sticker.no-art .sticker-label {
   position: static;
   width: auto; height: auto;
   margin: 0; overflow: visible;
   clip: auto; white-space: normal;
+  font-size: 0.8rem;
+  color: var(--ink);
 }
-.bubble:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-.bubble.is-popped {
-  animation: pop 320ms ease-out forwards;
+/* The peel: the inner layer curls up, the outer one carries it to the tray.
+   --fly-x / --fly-y are measured in JS, so the sticker lands where the tray is. */
+.sticker.is-peeling {
   pointer-events: none;
+  z-index: 5;
+  animation: sticker-fly 640ms cubic-bezier(0.4, 0.05, 0.3, 1) forwards;
+}
+.sticker.is-peeling .sticker-inner {
+  animation: sticker-curl 640ms cubic-bezier(0.4, 0.05, 0.3, 1) forwards;
+}
+@keyframes sticker-curl {
+  0%   { transform: perspective(620px) rotate3d(-1, 1, 0, 17deg) translateZ(6px); }
+  45%  { transform: perspective(620px) rotate3d(-1, 1, 0, 68deg) translateZ(26px); }
+  100% { transform: perspective(620px) rotate3d(-1, 1, 0, 104deg) translateZ(34px); }
+}
+@keyframes sticker-fly {
+  0%   { transform: none; opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translate(var(--fly-x, 0px), var(--fly-y, 0px)) scale(0.42); opacity: 0; }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-14px); }
+.sticker[hidden] { display: none; }
+
+/* ---------- The tray ---------- */
+.tray {
+  max-width: 1100px;
+  margin: clamp(1.5rem, 1rem + 2vw, 3rem) auto 0;
+  perspective: 700px;
 }
-@keyframes pop {
-  0%   { scale: 1;    opacity: 1; }
-  40%  { scale: 1.25; opacity: 0.85; }
-  100% { scale: 0.2;  opacity: 0; }
+.tray-label {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
 }
+.tray-count { opacity: 0.7; }
+
+/* A shallow dish rather than a flat strip: tipped back a few degrees with an
+   inner shadow, so peeled stickers look dropped in rather than lined up. */
+.tray-items {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 86px;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  list-style: none;
+  border: 1.5px dashed var(--rule);
+  border-radius: 16px;
+  box-shadow: inset 0 8px 16px rgba(58, 46, 44, 0.07);
+  transform: rotateX(9deg);
+  transform-origin: bottom center;
+}
+.tray-item {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 24%;
+  background: color-mix(in srgb, var(--tint) 34%, #FFFFFF);
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 2px 5px rgba(58, 46, 44, 0.18);
+  rotate: var(--tilt, 0deg);
+  animation: tray-drop 260ms cubic-bezier(0.2, 0.8, 0.3, 1) backwards;
+}
+.tray-item img { width: 64%; height: 64%; object-fit: contain; }
+@keyframes tray-drop {
+  from { transform: translateY(-14px) scale(1.15); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+.tray-restick { margin-top: 0.75rem; }
 
 @media (prefers-reduced-motion: reduce) {
-  .me-bubble, .bubble { animation: none; }
-  .bubble.is-popped { animation-duration: 1ms; }
+  .sticker-inner,
+  .sticker.is-peeling,
+  .sticker.is-peeling .sticker-inner,
+  .tray-item { animation-duration: 1ms; transition-duration: 1ms; }
 }
 
 .scene-hint {

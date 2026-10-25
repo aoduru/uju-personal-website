@@ -4,12 +4,12 @@ Portfolio site for Uju Duru. Plain HTML, CSS and one small JS file — no framew
 no build step. Open `index.html` or serve the folder.
 
 ```
-index.html                  header, bubble hero, case study cards, section stubs, footer
+index.html                  header, sticker hero, case study cards, section stubs, footer
 case-studies/_template.html the case study template — copy it per project
 css/style.css               design tokens at the top, then header / hero / cards / footer
 css/case-study.css          case study page layout (reuses the tokens)
 js/site.js                  every page: theme, ?bg= / ?font= trials, footer year
-js/bubbles.js               bubble popping + sound
+js/stickers.js              sticker peeling, the tray, and sound
 js/carousel.js              arrow buttons for the swipeable cards
 js/case-study.js            highlights the current section in "On this page"
 assets/                     illustration and sounds (see assets/README.md)

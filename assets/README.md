@@ -17,6 +17,7 @@ One file per bubble, named to match its `data-sound` attribute in `index.html`:
 | `sound/guitar.mp3` | an acoustic strum or a single plucked string |
 | `sound/drawing.mp3` | pencil on paper |
 | `sound/games.mp3` | a controller click or coin blip |
+| `sound/peel.mp3` | a sticker coming off its backing — plays under every peel |
 
 Aim for about a second. Longer is survivable — the page fades any clip out at
 1.6s and stops the previous one when a new bubble is popped — but a clip that is
