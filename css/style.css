@@ -182,15 +182,18 @@ a { color: inherit; }
   margin-inline: auto;
   aspect-ratio: 16 / 10;
   min-height: 380px;
+  /* Sticker sizes are given in cqw, so they grow with the stage instead of
+     staying at a fixed pixel size and shrinking visually on a big screen. */
+  container-type: inline-size;
 }
 
 /* Uju: drawn into the paper. No border, no shadow, no lift — the one thing
    on this page that cannot be peeled off. */
 .me {
   position: absolute;
-  inset: 50% auto auto 50%;
+  inset: 44% auto auto 50%;
   translate: -50% -50%;
-  width: min(46%, 440px);
+  width: min(56%, 580px);
   margin: 0;
 }
 .me .placeholder-note { display: none; }
@@ -544,6 +547,9 @@ body[data-art="contour"] .tray-item img {
 }
 
 @media (max-width: 560px) {
+  /* A narrow stage has less room around the figure, so she gives some back
+     rather than crowding the stickers off their corners. */
+  .me { width: min(46%, 300px); }
   .site-header { align-items: flex-start; }
   .footer-links { text-align: left; }
   .stage { aspect-ratio: 3 / 4; }
