@@ -203,9 +203,9 @@ a { color: inherit; }
   position: absolute;
   inset: 50% auto auto 50%;
   translate: -50% -50%;
-  height: 82%;
+  height: 92%;
   width: auto;
-  max-width: 60%;
+  max-width: 62%;
   margin: 0;
 }
 .me img { height: 100%; width: auto; object-fit: contain; }
