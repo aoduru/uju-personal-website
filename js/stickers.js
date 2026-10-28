@@ -326,6 +326,8 @@
         : 'things i like';
     }
     if (restick) restick.hidden = peeled.length === 0;
+    var trayBox = document.getElementById('tray');
+    if (trayBox) trayBox.classList.toggle('is-empty', peeled.length === 0);
   }
 
   function trayItem(sticker) {

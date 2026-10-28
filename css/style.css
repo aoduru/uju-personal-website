@@ -171,17 +171,27 @@ a { color: inherit; }
 /* ===========================================================
    HERO — the sticker page
    =========================================================== */
+/* The hero fills the screen below the header and centres itself in it, so the
+   whole composition — Uju, the stickers, the hint and the controls — is visible
+   the moment the page opens instead of running off the bottom. */
 .scene {
-  padding: clamp(1rem, 0.5rem + 2vw, 3rem) var(--gutter) clamp(2rem, 1rem + 3vw, 4rem);
+  min-height: calc(100svh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(0.5rem, 1vw, 1.5rem) var(--gutter) clamp(1rem, 2vw, 2rem);
 }
 
 .stage {
   position: relative;
-  width: 100%;
-  max-width: 1100px;
-  margin-inline: auto;
+  /* Height-led rather than width-led: the stage takes what the viewport has
+     left over, and its width follows from the ratio. */
+  height: min(calc(100svh - 260px), 620px);
   aspect-ratio: 16 / 10;
-  min-height: 380px;
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto;
+  min-height: 360px;
   /* Sticker sizes are given in cqw, so they grow with the stage instead of
      staying at a fixed pixel size and shrinking visually on a big screen. */
   container-type: inline-size;
@@ -191,11 +201,14 @@ a { color: inherit; }
    on this page that cannot be peeled off. */
 .me {
   position: absolute;
-  inset: 44% auto auto 50%;
+  inset: 50% auto auto 50%;
   translate: -50% -50%;
-  width: min(56%, 580px);
+  height: 82%;
+  width: auto;
+  max-width: 60%;
   margin: 0;
 }
+.me img { height: 100%; width: auto; object-fit: contain; }
 .me .placeholder-note { display: none; }
 .me.is-placeholder {
   aspect-ratio: 1;
@@ -420,6 +433,10 @@ body[data-art="contour"] .tray-item img {
 .sticker[hidden] { display: none; }
 
 /* ---------- The tray ---------- */
+/* Nothing has been peeled yet, so there is nothing to show. It appears on the
+   first peel, which also keeps the hero inside one screen. */
+.tray.is-empty { display: none; }
+
 .tray {
   max-width: 1100px;
   margin: clamp(1.5rem, 1rem + 2vw, 3rem) auto 0;
@@ -547,9 +564,11 @@ body[data-art="contour"] .tray-item img {
 }
 
 @media (max-width: 560px) {
-  /* A narrow stage has less room around the figure, so she gives some back
-     rather than crowding the stickers off their corners. */
-  .me { width: min(46%, 300px); }
+  /* A narrow stage is taller than it is wide, so the figure goes back to being
+     width-led and gives some room back to the stickers. */
+  .stage { height: auto; width: 100%; aspect-ratio: 3 / 4; }
+  .me { height: auto; width: min(46%, 300px); max-width: none; }
+  .me img { height: auto; width: 100%; }
   .site-header { align-items: flex-start; }
   .footer-links { text-align: left; }
   .stage { aspect-ratio: 3 / 4; }
