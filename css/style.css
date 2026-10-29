@@ -202,10 +202,14 @@ a { color: inherit; }
 .me {
   position: absolute;
   inset: 50% auto auto 50%;
-  translate: -50% -50%;
-  height: 56%;
+  /* The drawing's bounding box is centred but its ink is not: the knees and
+     legs carry the weight to the right, putting the visual centre 10.3% of the
+     width right of the box centre. Nudging left by that much balances the gap
+     to the stickers on each side. */
+  translate: -57.9% -50%;
+  height: 64%;
   width: auto;
-  max-width: 46%;
+  max-width: 52%;
   margin: 0;
 }
 .me img { height: 100%; width: auto; object-fit: contain; }
