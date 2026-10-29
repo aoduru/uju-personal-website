@@ -186,15 +186,15 @@ a { color: inherit; }
   position: relative;
   /* Height-led rather than width-led: the stage takes what the viewport has
      left over, and its width follows from the ratio. */
-  height: min(calc(100svh - 250px), 720px);
-  aspect-ratio: 16 / 10;
-  width: auto;
-  max-width: 100%;
+  height: min(calc(100svh - 240px), 760px);
+  width: 100%;
+  max-width: 1800px;
   margin-inline: auto;
   min-height: 360px;
-  /* Sticker sizes are given in cqw, so they grow with the stage instead of
-     staying at a fixed pixel size and shrinking visually on a big screen. */
-  container-type: inline-size;
+  /* container-type: size exposes cqh as well as cqw. Stickers are sized from
+     the stage's HEIGHT so the arc keeps its proportions when the stage gets
+     wider, instead of swelling with the width. */
+  container-type: size;
 }
 
 /* Uju: drawn into the paper. No border, no shadow, no lift — the one thing
@@ -203,9 +203,9 @@ a { color: inherit; }
   position: absolute;
   inset: 50% auto auto 50%;
   translate: -50% -50%;
-  height: 92%;
+  height: 56%;
   width: auto;
-  max-width: 62%;
+  max-width: 46%;
   margin: 0;
 }
 .me img { height: 100%; width: auto; object-fit: contain; }
