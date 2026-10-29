@@ -207,9 +207,9 @@ a { color: inherit; }
      width right of the box centre. Nudging left by that much balances the gap
      to the stickers on each side. */
   translate: -57.9% -50%;
-  height: 64%;
+  height: 71%;
   width: auto;
-  max-width: 52%;
+  max-width: 56%;
   margin: 0;
 }
 .me img { height: 100%; width: auto; object-fit: contain; }
@@ -225,6 +225,25 @@ a { color: inherit; }
   display: block;
   font-size: 0.8rem;
   color: var(--ink-soft);
+}
+
+/* ---------- Sticker placement ----------
+   Kept here rather than inline so the mobile block below can
+   override it; inline styles would win over any media query. */
+.sticker[data-sound="reading"] { --x: 23.9%; --y: 18.3%; --tilt: -13deg; --size: clamp(88px, 44.00cqh, 484px); }
+.sticker[data-sound="singing"] { --x: 13.8%; --y: 52.1%; --tilt: 10deg; --size: clamp(50px, 25.00cqh, 275px); }
+.sticker[data-sound="drawing"] { --x: 26.3%; --y: 80.6%; --tilt: -4deg; --size: clamp(50px, 25.00cqh, 275px); }
+.sticker[data-sound="plane"] { --x: 76.1%; --y: 18.3%; --tilt: 6deg; --size: clamp(50px, 25.00cqh, 275px); }
+.sticker[data-sound="guitar"] { --x: 86.2%; --y: 52.1%; --tilt: -15deg; --size: clamp(50px, 25.00cqh, 275px); }
+.sticker[data-sound="games"] { --x: 73.7%; --y: 80.6%; --tilt: 12deg; --size: clamp(60px, 29.75cqh, 327px); }
+
+@media (max-width: 560px) {
+  .sticker[data-sound="reading"] { --x: 29%; --size: clamp(67px, 33.44cqh, 368px); }
+  .sticker[data-sound="singing"] { --x: 17%; --size: clamp(38px, 19.00cqh, 209px); }
+  .sticker[data-sound="drawing"] { --x: 27%; --size: clamp(38px, 19.00cqh, 209px); }
+  .sticker[data-sound="plane"] { --x: 71%; --size: clamp(38px, 19.00cqh, 209px); }
+  .sticker[data-sound="guitar"] { --x: 83%; --size: clamp(38px, 19.00cqh, 209px); }
+  .sticker[data-sound="games"] { --x: 73%; --size: clamp(45px, 22.61cqh, 249px); }
 }
 
 /* ---------- Stickers ---------- */
