@@ -229,21 +229,23 @@ a { color: inherit; }
 
 /* ---------- Sticker placement ----------
    Kept here rather than inline so the mobile block below can
-   override it; inline styles would win over any media query. */
-.sticker[data-sound="reading"] { --x: 23.9%; --y: 18.3%; --tilt: -13deg; --size: clamp(88px, 44.00cqh, 484px); }
+   override it; inline styles would win over any media query.
+   --size drives the LONGEST edge, so a wide drawing needs a bigger
+   box to end up the same height as a tall one. */
+.sticker[data-sound="reading"] { --x: 23.9%; --y: 18.3%; --tilt: -13deg; --size: clamp(58px, 29.17cqh, 321px); }
 .sticker[data-sound="singing"] { --x: 13.8%; --y: 52.1%; --tilt: 10deg; --size: clamp(50px, 25.00cqh, 275px); }
 .sticker[data-sound="drawing"] { --x: 26.3%; --y: 80.6%; --tilt: -4deg; --size: clamp(50px, 25.00cqh, 275px); }
 .sticker[data-sound="plane"] { --x: 76.1%; --y: 18.3%; --tilt: 6deg; --size: clamp(50px, 25.00cqh, 275px); }
 .sticker[data-sound="guitar"] { --x: 86.2%; --y: 52.1%; --tilt: -15deg; --size: clamp(50px, 25.00cqh, 275px); }
-.sticker[data-sound="games"] { --x: 73.7%; --y: 80.6%; --tilt: 12deg; --size: clamp(60px, 29.75cqh, 327px); }
+.sticker[data-sound="games"] { --x: 73.7%; --y: 80.6%; --tilt: 12deg; --size: clamp(58px, 29.09cqh, 320px); }
 
 @media (max-width: 560px) {
-  .sticker[data-sound="reading"] { --x: 29%; --size: clamp(67px, 33.44cqh, 368px); }
+  .sticker[data-sound="reading"] { --x: 29%; --size: clamp(44px, 22.17cqh, 244px); }
   .sticker[data-sound="singing"] { --x: 17%; --size: clamp(38px, 19.00cqh, 209px); }
   .sticker[data-sound="drawing"] { --x: 27%; --size: clamp(38px, 19.00cqh, 209px); }
   .sticker[data-sound="plane"] { --x: 71%; --size: clamp(38px, 19.00cqh, 209px); }
   .sticker[data-sound="guitar"] { --x: 83%; --size: clamp(38px, 19.00cqh, 209px); }
-  .sticker[data-sound="games"] { --x: 73%; --size: clamp(45px, 22.61cqh, 249px); }
+  .sticker[data-sound="games"] { --x: 73%; --size: clamp(44px, 22.11cqh, 243px); }
 }
 
 /* ---------- Stickers ---------- */
