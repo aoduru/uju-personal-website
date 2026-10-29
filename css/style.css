@@ -396,6 +396,30 @@ body[data-art="contour"] .sticker-shine {
   width: 100%;
   height: 100%;
 }
+/* The lift shadow is a box-shadow on a square element. With no square to cast
+   it, it shows as a floating rectangle around transparent art — most obvious on
+   the book, which is wide and pale. In contour mode the lift is carried by a
+   drop-shadow on the artwork instead, which follows the drawn edge.
+
+   These selectors are deliberately long: they have to out-weigh
+   .sticker:hover .sticker-inner and .sticker[data-started] .sticker-inner,
+   which are more specific than the plain contour rule above. */
+body[data-art="contour"] .sticker .sticker-inner,
+body[data-art="contour"] .sticker:hover .sticker-inner,
+body[data-art="contour"] .sticker:focus-visible .sticker-inner,
+body[data-art="contour"] .sticker[data-started] .sticker-inner {
+  box-shadow: none;
+}
+body[data-art="contour"] .sticker[data-started] .sticker-art {
+  filter: drop-shadow(0 6px 9px rgba(58, 46, 44, 0.22));
+}
+body[data-art="contour"] .sticker:hover .sticker-art,
+body[data-art="contour"] .sticker:focus-visible .sticker-art {
+  filter:
+    drop-shadow(0 9px 14px rgba(58, 46, 44, 0.26))
+    drop-shadow(0 0 9px color-mix(in srgb, var(--tint) 70%, transparent));
+}
+
 .tray-item[data-art="contour"],
 body[data-art="contour"] .tray-item {
   background: none;
