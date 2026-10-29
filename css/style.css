@@ -186,7 +186,7 @@ a { color: inherit; }
   position: relative;
   /* Height-led rather than width-led: the stage takes what the viewport has
      left over, and its width follows from the ratio. */
-  height: min(calc(100svh - 260px), 620px);
+  height: min(calc(100svh - 250px), 720px);
   aspect-ratio: 16 / 10;
   width: auto;
   max-width: 100%;
